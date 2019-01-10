@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <div class="nav">导航栏</div>
+    <umaru-nav></umaru-nav>
     <div class="main">
-      主体
       <router-view></router-view>
     </div>
     <div class="footer">页脚</div>
@@ -22,7 +21,10 @@ export default {
   store,
   computed: mapState({
     testContent: 'testContent',
-  })
+  }),
+  components: {
+    'umaru-nav': Nav,
+  }
 }
 </script>
 
@@ -31,8 +33,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
