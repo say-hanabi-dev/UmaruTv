@@ -4,7 +4,7 @@
     <div class="main">
       <router-view></router-view>
     </div>
-    <div class="footer">页脚</div>
+    <umaru-footer></umaru-footer>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
   }),
   components: {
     'umaru-nav': Nav,
+    'umaru-footer': Footer,
   }
 }
 </script>
