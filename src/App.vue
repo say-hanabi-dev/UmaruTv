@@ -1,18 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="nav">导航栏</div>
+    <div class="main">
+      主体
+      <router-view></router-view>
+    </div>
+    <div class="footer">页脚</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState } from 'vuex'
+import routerCon from './router.js'
+import store from './store.js'
+import Nav from './components/Nav'
+import Footer from './components/Footer'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
-  }
+  router: routerCon,
+  store,
+  computed: mapState({
+    testContent: 'testContent',
+  })
 }
 </script>
 
