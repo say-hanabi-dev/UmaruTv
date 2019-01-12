@@ -3,7 +3,7 @@
     <div class="nav-local">
       <div class="container">
         <div class="scroll-screen">
-          <umr-slider screenType="slide" class="flex justify-center align-end"></umr-slider>
+          <umr-slider screenType="fade" class="flex justify-center align-end"></umr-slider>
         </div>
         <div class="plates flex justify-center">
           <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>
@@ -13,8 +13,8 @@
     <div class="main">
       <div class="recommend">
         <div class="container space-between pure-g">
-          <umr-card v-for="card in cardRec" class="pure-u-11-24" :key="card.id" :href="card.href">
-            <div class="umr-card-main umr-card-lg" slot="umr-card-main">
+          <umr-card v-for="card in cardRec" class="pure-u-11-24 umr-card-lg" :key="card.id" :href="card.href">
+            <div class="umr-card-main" slot="umr-card-main">
               <img :src="card.src" alt>
             </div>
             <div class="umr-card-bottom" slot="umr-card-bottom">
@@ -36,7 +36,28 @@
             </div>
             <div class="pure-u-6-24"></div>
           </div>
-          <div class="cards"></div>
+          <div class="cards pure-g">
+            <div class="pure-u-18-24 pure-g flex space-between">
+              <umr-card v-for="item in cardItems" class="umr-card-sm pure-u-5-24" :href="item.href" :key="item.id">
+                <div class="umr-card-main" slot="umr-card-bottom" >
+                  <img :src="item.src" alt="">
+                </div>
+                <div class="umr-card-bottom" slot="umr-card-bottom">
+                  <div class="umr-card-sm-title">
+                    {{item.title}}
+                  </div>
+                  <div class="umr-card-sm-states">
+                    <span><font-awesome-icon class="card-ico" icon="heart"/> {{item.collectcount}} </span>
+                    <span><font-awesome-icon class="card-ico" icon="comment"/> {{item.comment}} </span>
+                    <span><font-awesome-icon class="card-ico" icon="video"/> {{item.playcount}} </span>
+                  </div>
+                </div>
+              </umr-card>
+              <div class="flex-fix-3"></div>
+              <div class="flex-fix-4"></div>
+            </div>
+            <div class="pure-u-6-24"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -124,8 +145,154 @@ export default {
           id: "BTN_CAT04",
           href: "#",
           content: "其他"
-        }
-      ]
+        },
+      ],
+      cardItems: [
+        {
+          id: "CARD_ITEM01",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM02",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM03",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM04",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM05",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM06",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM07",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM08",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM09",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM010",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM11",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM012",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM13",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM14",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM15",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+        {
+          id: "CARD_ITEM16",
+          src: require('../assets/C2.jpg'),
+          href: '#',
+          title: '少女编号01',
+          playcount: '300',
+          comment: '25',
+          collectcount: '40',
+        },
+      ],
     };
   }
 };
@@ -180,5 +347,19 @@ export default {
 }
 .cats {
   margin-bottom: 2rem;
+}
+@media screen and (min-width: 35.5em) {
+}
+
+@media screen and (min-width: 48em) {
+}
+
+@media screen and (min-width: 64em) {
+  .flex-fix-3,.flex-fix-4 {
+    flex-basis: 23%;
+  }
+}
+
+@media screen and (min-width: 80em) {
 }
 </style>

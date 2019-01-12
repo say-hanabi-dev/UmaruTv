@@ -191,19 +191,25 @@ export default {
   box-shadow: 0 0 5px 0 rgb(206, 206, 206);
 }
 .umr-slider-screen:hover {
-    box-shadow: 0 0 8px 2px rgb(206, 206, 206);
+  box-shadow: 0 0 8px 2px rgb(206, 206, 206);
 }
 .umr-slider-pic {
   position: relative;
-  height: 400px;
-  width: 1280px;
+  height: 100px;
+  width: 320px;
 }
+.umr-slider-pic img {
+    width: 100%;
+    height: 100%;
+}
+
 .umr-slider-pic a {
   width: 100%;
   position: absolute;
   display: block;
   height: 100%;
   opacity: 1;
+  transition: all 2s;
 }
 .umr-slider-pic img,
 .umr-slider-pic a,
@@ -223,5 +229,26 @@ export default {
 }
 .hasTransition {
   transition: all 1s;
+}
+
+@media screen and (min-width: 35.5em) {
+  .umr-slider-pic,
+  .umr-slider-pic img {
+    position: relative;
+    height: 400px;
+    width: 1280px;
+  }
+}
+
+@media screen and (min-width: 48em) {
+
+}
+
+@media screen and (min-width: 64em) {
+
+}
+
+@media screen and (min-width: 80em) {
+
 }
 </style>
