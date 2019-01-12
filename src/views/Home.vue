@@ -17,10 +17,10 @@
       <div class="recommend">
         <div class="container space-between pure-g">
           <umr-card v-for="card in cardRec" class="pure-u-11-24" :key="card.id" :href="card.href">
-            <div slot="umr-card-main">
+            <div class="umr-card-main umr-card-lg" slot="umr-card-main">
               <img :src="card.src" alt>
             </div>
-            <div slot="umr-card-bottom">
+            <div class="umr-card-bottom" slot="umr-card-bottom">
               <h2>{{card.title}}</h2>
             </div>
           </umr-card>
@@ -49,25 +49,25 @@ export default {
       cardRec: [
         {
           id: "CARD_REC01",
-          src: "",
+          src: require("../assets/C1.jpg"),
           href: "",
           title: "关于我转生变成史莱姆的这档事14"
         },
         {
           id: "CARD_REC02",
-          src: "",
+          src: require("../assets/C1.jpg"),
           href: "",
           title: "关于我转生变成史莱姆的这档事14"
         },
         {
           id: "CARD_REC03",
-          src: "",
+          src: require("../assets/C1.jpg"),
           href: "",
           title: "关于我转生变成史莱姆的这档事14"
         },
         {
           id: "CARD_REC04",
-          src: "",
+          src: require("../assets/C1.jpg"),
           href: "",
           title: "关于我转生变成史莱姆的这档事14"
         }
@@ -85,6 +85,7 @@ export default {
 .nav-local {
   padding-top: 3rem;
   background: white;
+  margin-bottom: 2rem;
 }
 .plates a {
   padding: 1.5rem 1.5rem;

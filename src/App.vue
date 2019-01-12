@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <umaru-nav></umaru-nav>
+    <umaru-nav class="nav-global"></umaru-nav>
     <div class="main">
       <router-view></router-view>
     </div>
@@ -35,5 +35,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.nav-global {
+    box-shadow: 0 0 5px 0 gray;
 }
 </style>
