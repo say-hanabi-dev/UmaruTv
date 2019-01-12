@@ -24,12 +24,12 @@ export default {
                 {
                     id: 'NAV_G1',
                     href: '',
-                    content: '首页',
+                    content: '论坛',
                 },
                 {
                     id: 'NAV_G2',
                     href: '',
-                    content: '首页',
+                    content: '分类',
                 },
             ],
             userMsg: [

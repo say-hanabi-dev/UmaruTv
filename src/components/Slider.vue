@@ -95,38 +95,42 @@ export default {
   },
   methods: {
     bootSlider() {
-        switch (this.screenType) {
-            case "fade":
-                let fadeInterval = setInterval(() => {
-                this.fade();
-                }, 2000);
-                this.listenVisibilityState(fadeInterval);
-                break;
-            case "slide":
-                let slideInterval = setInterval(() => {
-                this.antiSlide();
-                }, 3000);
-                this.listenVisibilityState(slideInterval);
-                break;
-        }
+      switch (this.screenType) {
+        case "fade":
+          let fadeInterval = setInterval(() => {
+            this.fade();
+          }, 4000);
+          this.listenVisibilityState(fadeInterval);
+          break;
+        case "slide":
+          let slideInterval = setInterval(() => {
+            this.antiSlide();
+          }, 4000);
+          this.listenVisibilityState(slideInterval);
+          break;
+      }
     },
     listenVisibilityState(Interval) {
-        let self = this;
-        document.addEventListener('visibilitychange',visibilitychange,false);
+      let self = this;
+      document.addEventListener("visibilitychange", visibilitychange, false);
 
-        function visibilitychange() {
-            if (document.visibilityState === 'hidden') {
-                clearInterval(Interval);
-            }
-            if (document.visibilityState === 'visible') {
-                document.removeEventListener('visibilitychange',visibilitychange,false);
-                self.position = 0;
-                self.currentIndex = 0;
-                setTimeout(function(){
-                    self.bootSlider();
-                },1500)
-            }
+      function visibilitychange() {
+        if (document.visibilityState === "hidden") {
+          clearInterval(Interval);
         }
+        if (document.visibilityState === "visible") {
+          document.removeEventListener(
+            "visibilitychange",
+            visibilitychange,
+            false
+          );
+          self.position = 0;
+          self.currentIndex = 0;
+          setTimeout(function() {
+            self.bootSlider();
+          }, 2000);
+        }
+      }
     },
     fade() {
       this.imgs[this.currentIndex].isFade = true;
@@ -170,7 +174,6 @@ export default {
   created() {},
   mounted() {
     this.bootSlider();
-    
   }
 };
 </script>
@@ -180,11 +183,15 @@ export default {
   width: 100%;
 }
 .umr-slider-screen {
+  transition: all 0.3s;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  box-shadow: 0 0 5px 0 gray;
+  box-shadow: 0 0 5px 0 rgb(206, 206, 206);
+}
+.umr-slider-screen:hover {
+    box-shadow: 0 0 8px 2px rgb(206, 206, 206);
 }
 .umr-slider-pic {
   position: relative;

@@ -38,6 +38,6 @@ export default {
 }
 
 .nav-global {
-    box-shadow: 0 0 5px 0 gray;
+    box-shadow: 0 0 8px 0 gray;
 }
 </style>
