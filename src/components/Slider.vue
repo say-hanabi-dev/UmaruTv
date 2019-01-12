@@ -94,6 +94,40 @@ export default {
     }
   },
   methods: {
+    bootSlider() {
+        switch (this.screenType) {
+            case "fade":
+                let fadeInterval = setInterval(() => {
+                this.fade();
+                }, 2000);
+                this.listenVisibilityState(fadeInterval);
+                break;
+            case "slide":
+                let slideInterval = setInterval(() => {
+                this.antiSlide();
+                }, 3000);
+                this.listenVisibilityState(slideInterval);
+                break;
+        }
+    },
+    listenVisibilityState(Interval) {
+        let self = this;
+        document.addEventListener('visibilitychange',visibilitychange,false);
+
+        function visibilitychange() {
+            if (document.visibilityState === 'hidden') {
+                clearInterval(Interval);
+            }
+            if (document.visibilityState === 'visible') {
+                document.removeEventListener('visibilitychange',visibilitychange,false);
+                self.position = 0;
+                self.currentIndex = 0;
+                setTimeout(function(){
+                    self.bootSlider();
+                },1500)
+            }
+        }
+    },
     fade() {
       this.imgs[this.currentIndex].isFade = true;
       if (this.currentIndex + 1 == this.imgs.length) {
@@ -135,18 +169,8 @@ export default {
   },
   created() {},
   mounted() {
-    switch (this.screenType) {
-      case "fade":
-        setInterval(() => {
-          this.fade();
-        }, 2000);
-        break;
-      case "slide":
-        let a = setInterval(() => {
-          this.antiSlide();
-        }, 3000);
-        break;
-    }
+    this.bootSlider();
+    
   }
 };
 </script>
