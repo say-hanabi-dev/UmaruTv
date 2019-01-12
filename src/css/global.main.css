@@ -6,8 +6,32 @@ a {
     text-decoration: none;
 }
 
+img {
+    display: block;
+}
+
 .container {
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.flex {
+    display: flex;
+} 
+
+.align-center {
+    align-items: center;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.space-between {
+    justify-content: space-between;
 }
