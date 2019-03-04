@@ -3,7 +3,7 @@
     <div class="nav-local">
       <div class="container">
         <div class="scroll-screen">
-          <umr-slider screenType="fade" class="flex justify-center align-end"></umr-slider>
+          <umr-slider screenType="slide" class="flex justify-center align-end"></umr-slider>
         </div>
         <div class="plates flex justify-center">
           <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>
@@ -13,7 +13,12 @@
     <div class="main">
       <div class="recommend">
         <div class="container space-between pure-g">
-          <umr-card v-for="card in cardRec" class="pure-u-11-24 umr-card-lg" :key="card.id" :href="card.href">
+          <umr-card
+            v-for="card in cardRec"
+            class="pure-u-11-24 umr-card-lg"
+            :key="card.id"
+            :href="card.href"
+          >
             <div class="umr-card-main" slot="umr-card-main">
               <img :src="card.src" alt>
             </div>
@@ -34,29 +39,50 @@
                 :key="btn.id"
               >{{btn.content}}</a>
             </div>
-            <div class="pure-u-6-24"></div>
+            <div class="pure-u-6-24 toolbar-container">
+              <div class="toolbar">最近更新</div>
+            </div>
           </div>
           <div class="cards pure-g">
             <div class="pure-u-18-24 pure-g flex space-between">
-              <umr-card v-for="item in cardItems" class="umr-card-sm pure-u-5-24" :href="item.href" :key="item.id">
-                <div class="umr-card-main" slot="umr-card-bottom" >
-                  <img :src="item.src" alt="">
+              <umr-card
+                v-for="item in cardItems"
+                class="umr-card-sm pure-u-5-24"
+                :href="item.href"
+                :key="item.id"
+              >
+                <div class="umr-card-main" slot="umr-card-main">
+                  <img :src="item.src" alt>
                 </div>
                 <div class="umr-card-bottom" slot="umr-card-bottom">
-                  <div class="umr-card-sm-title">
-                    {{item.title}}
-                  </div>
+                  <div class="umr-card-sm-title">{{item.title}}</div>
                   <div class="umr-card-sm-states">
-                    <span><font-awesome-icon class="card-ico" icon="heart"/> {{item.collectcount}} </span>
-                    <span><font-awesome-icon class="card-ico" icon="comment"/> {{item.comment}} </span>
-                    <span><font-awesome-icon class="card-ico" icon="video"/> {{item.playcount}} </span>
+                    <span>
+                      <font-awesome-icon class="card-ico" icon="heart"/>
+                      {{item.collectcount}}
+                    </span>
+                    <span>
+                      <font-awesome-icon class="card-ico" icon="comment"/>
+                      {{item.comment}}
+                    </span>
+                    <span>
+                      <font-awesome-icon class="card-ico" icon="video"/>
+                      {{item.playcount}}
+                    </span>
                   </div>
                 </div>
               </umr-card>
               <div class="flex-fix-3"></div>
               <div class="flex-fix-4"></div>
             </div>
-            <div class="pure-u-6-24"></div>
+            <div class="pure-u-6-24 toolbar-container">
+              <umr-card class="toolbar-items" v-for="(item,index) in toollbarItems" :key="item.id">
+                <div class="pure-g" slot="umr-card-bottom">
+                  <span class="tag tag-black pure-u-2-24">{{index + 1}}</span>
+                  <span class="pure-u-22-24 toolbar-title">{{item.title}}<span class="toolbar-sub">{{item.sub}}</span></span>
+                </div>
+              </umr-card>
+            </div>
           </div>
         </div>
       </div>
@@ -68,6 +94,8 @@
 // @ is an alias to /src
 import Slider from "@/components/Slider";
 import Card from "@/components/Card";
+
+import axios from 'axios'
 
 export default {
   name: "home",
@@ -139,162 +167,199 @@ export default {
         {
           id: "BTN_CAT03",
           href: "#",
-          content: "新番咨询"
+          content: "新番资讯"
         },
         {
           id: "BTN_CAT04",
           href: "#",
           content: "其他"
-        },
+        }
       ],
       cardItems: [
         {
           id: "CARD_ITEM01",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM02",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM03",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM04",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM05",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM06",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM07",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM08",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM09",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM010",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM11",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM012",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM13",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM14",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM15",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
         },
         {
           id: "CARD_ITEM16",
-          src: require('../assets/C2.jpg'),
-          href: '#',
-          title: '少女编号01',
-          playcount: '300',
-          comment: '25',
-          collectcount: '40',
-        },
+          src: require("../assets/C2.jpg"),
+          href: "#",
+          title: "少女编号01",
+          playcount: "300",
+          comment: "25",
+          collectcount: "40"
+        }
       ],
+      toollbarItems: [
+        {
+          title: "盾之勇者成名录",
+          id: "TB_01",
+          sub: "更新至03集"
+        },
+        {
+          title: "盾之勇者成名录",
+          id: "TB_02",
+          sub: "更新至03集"
+        },
+        {
+          title: "盾之勇者成名录",
+          id: "TB_03",
+          sub: "更新至03集"
+        },
+        {
+          title: "盾之勇者成名录",
+          id: "TB_04",
+          sub: "更新至03集"
+        },
+        {
+          title: "盾之勇者成名录",
+          id: "TB_05",
+          sub: "更新至03集"
+        },
+        {
+          title: "盾之勇者成名录",
+          id: "TB_06",
+          sub: "更新至03集"
+        }
+      ]
     };
-  }
+  },
+  mounted() {
+    axios.get('http://umarutv.misakas.com/animes').then((r)=>{
+      console.log(r);
+    })
+  },
 };
 </script>
 
@@ -326,7 +391,8 @@ export default {
 .cardgroups {
   padding-top: 2rem;
 }
-.btn-ellipse {
+.btn-ellipse,
+.toolbar {
   background: white;
   display: inline-block;
   padding: 0.5rem 1.5rem;
@@ -335,6 +401,31 @@ export default {
   font-size: 14px;
   color: #515a6e;
   margin-right: 0.7rem;
+}
+.toolbar {
+  width: 100%;
+  border-radius: 5px;
+}
+.toolbar-container {
+  padding-left: 1rem;
+}
+.toolbar-title {
+  padding: .5rem 0;
+  display: inline-block;
+}
+.toolbar-items {
+  margin-bottom: .5rem;
+}
+.toolbar-items>div {
+  width: 100%;
+  align-items: baseline;
+  padding-left: .3rem;
+  flex-wrap: nowrap;
+}
+.toolbar-sub {
+  font-size: 13px;
+  color: #9aa2b4;
+  margin-left: .3rem;
 }
 .btn-ellipse:hover {
   box-shadow: 0 0 8px 2px rgb(206, 206, 206);
@@ -355,7 +446,8 @@ export default {
 }
 
 @media screen and (min-width: 64em) {
-  .flex-fix-3,.flex-fix-4 {
+  .flex-fix-3,
+  .flex-fix-4 {
     flex-basis: 23%;
   }
 }

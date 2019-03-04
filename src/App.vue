@@ -14,6 +14,7 @@ import routerCon from './router.js'
 import store from './store.js'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import Video from './views/Video.vue'
 
 export default {
   name: 'app',

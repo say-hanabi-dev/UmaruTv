@@ -10,6 +10,10 @@ img {
     display: block;
 }
 
+p {
+    margin-top: 0;
+}
+
 .container {
     max-width: 1280px;
     margin-left: auto;
@@ -36,43 +40,50 @@ img {
     justify-content: space-between;
 }
 
-/* 卡片组件 */
-.umr-card.umr-card-sm img,
-.umr-card.umr-card-lg img {
-    max-width: 100%;
-    border-radius: 5px 5px 0 0;
-}
-
-.umr-card-main,
-.umr-card-bottom {
-    flex-basis: 100%;
-}
-
-.umr-card-bottom {
-    padding-left: 1.5rem;
-    color: #303642;
-}
-
-.umr-card-sm .umr-card-bottom {
-    padding-left: .75rem;
-}
-
-.umr-card-sm-title {
+.tag {
+    height: 1.3rem;
+    width: 1.3rem;
+    border: 2px solid;
+    text-align: center;
+    display: inline-block;
+    margin: 0 .3rem;
     font-weight: bold;
-    padding: .3rem 0;
-    color: #353b47;
+    font-size: 13px;
+    border-radius: 4px;
 }
 
-.umr-card-sm-states {
-    text-align: right;
-    padding-right: .74rem;
-    padding-bottom: .3rem;
-    font-size: 15px;
+.tag-black {
+    border-color: black;
+    background-color: black;
+    color: #fff;
 }
 
-.card-ico,
-.umr-card-sm-states {
-    color: #aaa;
+.group-title {
+    color: inherit;
+    margin-bottom: 1rem;
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btn-group .fix {
+    width: 60px;
+}
+
+.btn-group button {
+    width: 60px;
+    height: 36px;
+    margin-bottom: .5rem;
+    background: rgb(245, 246, 248);
+    border: 1px solid rgb(245, 246, 248);
+    transition: .3s all;
+}
+
+.btn-group button:hover {
+    border: 1px solid black;
 }
 
 @media screen and (min-width: 35.5em) {}

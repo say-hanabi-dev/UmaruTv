@@ -29,6 +29,43 @@ export default {};
   box-shadow: 0 0 8px 2px rgb(206, 206, 206);
   transform: translate(0, -2px);
 }
+.umr-card.umr-card-sm img,
+.umr-card.umr-card-lg img {
+  max-width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
+.umr-card-main,
+.umr-card-bottom {
+  flex-basis: 100%;
+}
+
+.umr-card-bottom {
+  padding-left: 1.5rem;
+  color: #303642;
+}
+
+.umr-card-sm .umr-card-bottom {
+  padding-left: 0.75rem;
+}
+
+.umr-card-sm-title {
+  font-weight: bold;
+  padding: 0.3rem 0;
+  color: #353b47;
+}
+
+.umr-card-sm-states {
+  text-align: right;
+  padding-right: 0.74rem;
+  padding-bottom: 0.3rem;
+  font-size: 15px;
+}
+
+.card-ico,
+.umr-card-sm-states {
+  color: #aaa;
+}
 @media screen and (min-width: 35.5em) {
 }
 

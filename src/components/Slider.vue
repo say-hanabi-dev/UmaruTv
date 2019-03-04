@@ -44,6 +44,8 @@ export default {
       currentIndex: 0,
       position: 0,
       enableTransition: true,
+      interval: "",
+      tk: 0,
       imgs: [
         {
           id: "SLIDER_01",
@@ -94,45 +96,61 @@ export default {
     }
   },
   methods: {
+    setTimer(type) {
+      this.interval = setTimeout(() => {
+        this[type](this.interval);
+      }, 2000);
+    },
     bootSlider() {
       switch (this.screenType) {
-        case "fade":
-          let fadeInterval = setInterval(() => {
-            this.fade();
-          }, 4000);
-          this.listenVisibilityState(fadeInterval);
+        case "fade": {
+          this.setTimer("fade");
           break;
-        case "slide":
-          let slideInterval = setInterval(() => {
-            this.antiSlide();
-          }, 4000);
-          this.listenVisibilityState(slideInterval);
+        }
+        case "slide": {
+          this.setTimer("slide");
+          this.listenVisibilityState(this.interval);
           break;
+        }
+        case "antiSlide": {
+          this.setTimer("antiSlide");
+          this.listenVisibilityState(this.interval);
+          break;
+        }
       }
     },
-    listenVisibilityState(Interval) {
+    listenVisibilityState(timedout) {
       let self = this;
+
       document.addEventListener("visibilitychange", visibilitychange, false);
 
       function visibilitychange() {
         if (document.visibilityState === "hidden") {
-          clearInterval(Interval);
+          clearTimeout(timedout);
+          this.enableTransition = false;
         }
         if (document.visibilityState === "visible") {
-          document.removeEventListener(
-            "visibilitychange",
-            visibilitychange,
-            false
-          );
-          self.position = 0;
-          self.currentIndex = 0;
-          setTimeout(function() {
+          console.log(timedout);
+          clearTimeout(timedout);
+          let newslide = new Promise((resolve, reject) => {
+            document.removeEventListener(
+              "visibilitychange",
+              visibilitychange,
+              false
+            );
+            self.position = 0;
+            self.currentIndex = 0;
+            resolve("eventremoved");
+          });
+          newslide.then(r => {
+            console.log(r);
             self.bootSlider();
-          }, 2000);
+          });
         }
       }
     },
-    fade() {
+    fade(timedout) {
+      clearTimeout(timedout);
       this.imgs[this.currentIndex].isFade = true;
       if (this.currentIndex + 1 == this.imgs.length) {
         this.imgs[0].isFade = false;
@@ -141,8 +159,10 @@ export default {
         this.imgs[this.currentIndex + 1].isFade = false;
         this.currentIndex += 1;
       }
+      this.setTimer("fade");
     },
-    slide() {
+    slide(timedout) {
+      clearTimeout(timedout);
       this.currentIndex += 1;
       this.enableTransition = true;
       requestAnimationFrame(() => {
@@ -154,9 +174,10 @@ export default {
           this.enableTransition = false;
           this.position = 0;
         }
+        this.setTimer("slide");
       }, 1000);
     },
-    antiSlide() {
+    antiSlide(timedout) {      clearTimeout(timedout);
       this.currentIndex -= 1;
       this.enableTransition = true;
       requestAnimationFrame(() => {
@@ -168,6 +189,7 @@ export default {
           this.enableTransition = false;
           this.position = -100 * (this.imgs.length - 1);
         }
+        this.setTimer("antiSlide");
       }, 1000);
     }
   },
@@ -199,8 +221,8 @@ export default {
   width: 320px;
 }
 .umr-slider-pic img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .umr-slider-pic a {
@@ -241,14 +263,11 @@ export default {
 }
 
 @media screen and (min-width: 48em) {
-
 }
 
 @media screen and (min-width: 64em) {
-
 }
 
 @media screen and (min-width: 80em) {
-
 }
 </style>
