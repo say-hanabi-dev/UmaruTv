@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Video from './views/Video.vue'
+import Catgory from './views/Catgory.vue'
 
 Vue.use(Router)
 
@@ -13,9 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/video',
+      path: '/video/:id/ep/:episode',
       name: 'video',
       component: Video
+    },
+    {
+      path: '/catgory/',
+      name:'category',
+      component: Catgory
     },
     {
       path: '/about',

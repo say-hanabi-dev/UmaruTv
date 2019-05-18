@@ -2,6 +2,7 @@
   <a class="umr-card">
     <slot name="umr-card-main"></slot>
     <slot name="umr-card-bottom"></slot>
+    <slot name="umr-card-lr"></slot>
   </a>
 </template>
 
@@ -65,6 +66,31 @@ export default {};
 .card-ico,
 .umr-card-sm-states {
   color: #aaa;
+}
+.umr-card-lr {
+  padding: 0.5rem;
+  border: 1px solid gray;
+  color: #353b47;
+  display: flex;
+  width: 100%;
+}
+.umr-card-lr-cover,
+.card-cover {
+  width: 180px;
+  min-height: 270px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 1rem;
+}
+.card-cover {
+  width: 100%;
+  min-height: 320px;
+  border-radius: 5px 5px 0 0;
+}
+.umr-card-lr-main {
+  flex-grow: 2;
+  flex-basis: 60%;
 }
 @media screen and (min-width: 35.5em) {
 }

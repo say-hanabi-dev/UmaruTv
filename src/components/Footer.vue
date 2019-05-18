@@ -15,7 +15,7 @@
         <div class="pure-u-1-3"></div>
       </div>
       <div class="pure-g">
-        <div class="copyright pure-u-1">Copyright &copy; 2019 Yakiboss</div>
+        <div class="copyright pure-u-1">Copyright &copy; 2019 UmaruTv developteam</div>
       </div>
     </div>
   </div>

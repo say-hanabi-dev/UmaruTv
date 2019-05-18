@@ -86,6 +86,41 @@ p {
     border: 1px solid black;
 }
 
+.globalmask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 30;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.fade-enter-active,
+.cutin-right-enter-active {
+    transition: all 0.3s ease;
+}
+
+.fade-leave-active,
+.cutin-right-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.cutin-right-enter {
+    transform: translateX(300px);
+}
+
+.cutin-right-leave-to {
+    transform: translateX(300px);
+}
+
+
 @media screen and (min-width: 35.5em) {}
 
 @media screen and (min-width: 48em) {}
