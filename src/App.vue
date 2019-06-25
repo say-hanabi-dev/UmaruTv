@@ -11,7 +11,12 @@
           <div class="auth-title">{{authTitle}}</div>
           <input type="text" v-model="auth.mail" placeholder="邮箱">
           <input type="text" v-model="auth.passwd" placeholder="密码">
-          <input type="text" v-if="auth.type === 'reg'" v-model="auth.passwdconfirm" placeholder="确认密码">
+          <input
+            type="text"
+            v-if="auth.type === 'reg'"
+            v-model="auth.passwdconfirm"
+            placeholder="确认密码"
+          >
           <div class="auth-row">
             <a href v-if="auth.type === 'login'">忘记密码？</a>
           </div>
@@ -30,11 +35,13 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Video from "./views/Video.vue";
 import Drawer from "./components/Drawer";
+import map from "./mixins/map.js";
 
 export default {
   name: "app",
   router: routerCon,
   store,
+  mixins: [map],
   computed: mapState({
     testContent: "testContent",
     authTitle: function() {

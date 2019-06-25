@@ -50,10 +50,12 @@
 <script>
 import Card from "@/components/Card";
 import Pagination from "@/components/Pagination";
+import map from "../mixins/map.js";
 
 import axios from "axios";
 
 export default {
+  mixins: [map],
   components: {
     "umr-card": Card,
     "umr-pagination": Pagination
@@ -164,7 +166,7 @@ export default {
       this.tagId = tagList.join(",");
     },
     getAnimeList(page) {
-      let url = "http://umarutv.misakas.com/animes/?paginate=20";
+      let url = `${this.baseUrl}/animes/?paginate=20`;
 
       if (page) {
         url = url + `&page=${page}`;
@@ -191,7 +193,7 @@ export default {
     }
   },
   created() {
-    axios.get(`http://umarutv.misakas.com/animes/tags`).then(r => {
+    axios.get(`${this.baseUrl}/animes/tags`).then(r => {
       this.catList.local = r.data.local;
       this.catList.style = r.data.style;
       this.catList.season = r.data.season;

@@ -123,11 +123,13 @@
 import Slider from "@/components/Slider";
 import Card from "@/components/Card";
 import Pagination from "@/components/Pagination";
+import map from "../mixins/map.js";
 
 import axios from "axios";
 
 export default {
   name: "home",
+  mixins: [map],
   components: {
     "umr-slider": Slider,
     "umr-card": Card,
@@ -251,7 +253,7 @@ export default {
       }
       this.videoGroup.currentPage = num;
       axios
-        .get(`http://umarutv.misakas.com/animes?page=${num}&paginate=16`)
+        .get(`${this.baseUrl}/animes?page=${num}&paginate=16`)
         .then(r => {
           console.log(r.data);
           this.videoGroup.lastPage = r.data.last_page;
@@ -267,18 +269,18 @@ export default {
   },
   mounted() {
     axios
-      .get("http://umarutv.misakas.com/animes?page=1&paginate=16")
+      .get(`${this.baseUrl}/animes?page=1&paginate=16`)
       .then(r => {
         console.log(r.data);
         this.videoGroup.currentPage = r.data.current_page;
         this.videoGroup.lastPage = r.data.last_page;
         this.catgory.allAnime = r.data.data;
       });
-    axios.get("http://umarutv.misakas.com/animes/recently-updated").then(r => {
+    axios.get(`${this.baseUrl}/animes/recently-updated`).then(r => {
       console.log(r.data);
       this.toollbarItems = r.data;
     });
-    axios.get("http://umarutv.misakas.com/animes/timeline").then(r => {
+    axios.get(`${this.baseUrl}/animes/timeline`).then(r => {
       console.log(r.data);
       this.catgory.timeline.data = r.data;
     });

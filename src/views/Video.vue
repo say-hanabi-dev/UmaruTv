@@ -51,12 +51,14 @@
 import Hls from "hls.js";
 import DPlayer from "dplayer";
 import Card from "@/components/Card";
+import map from "../mixins/map.js";
 
 import axios from "axios";
 
 window.Hls = Hls;
 
 export default {
+  mixins: [map],
   props: {
     msg: String
   },
@@ -84,7 +86,7 @@ export default {
       this.activeBtn(num);
       axios
         .get(
-          `http://umarutv.misakas.com/animes/video/${
+          `${this.baseUrl}/animes/video/${
             this.resource.video[num - 1].id
           }/resource`
         )
@@ -135,7 +137,7 @@ export default {
     let animeID = this.$route.params.id;
     let animeEpisode = this.$route.params.episode;
     axios
-      .get(`http://umarutv.misakas.com/animes/${animeID}/info?withVideo`)
+      .get(`${this.baseUrl}/animes/${animeID}/info?withVideo`)
       .then(r => {
         this.resource = r.data;
         console.log(this.resource);
@@ -143,7 +145,7 @@ export default {
         this.activeBtn(animeEpisode);
         axios
           .get(
-            `http://umarutv.misakas.com/animes/video/${
+            `${this.baseUrl}/animes/video/${
               r.data.video[animeEpisode - 1].id
             }/resource`
           )
@@ -159,7 +161,7 @@ export default {
               },
               danmaku: {
                 id: animeID,
-                api: "http://umarutv.misakas.com/animes/video/danmaku/"
+                api: `${this.baseUrl}/animes/video/danmaku/`
               }
             });
           });
