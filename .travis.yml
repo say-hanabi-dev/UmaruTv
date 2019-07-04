@@ -1,0 +1,20 @@
+language: node_js
+node_js: stable
+ 
+install:
+  - npm install
+
+script:
+  - npm run build
+ 
+after_script:
+  - cd ./dist
+  - echo "xldm.me">./CNAME
+  - git init
+  - git add .
+  - git commit -m "Deploy"
+  - git push --force "https://${GH_TOKEN}@github.com/say-hanabi-dev/UmaruTv.git" master:gh-pages
+
+branches:
+  only:
+    - master
