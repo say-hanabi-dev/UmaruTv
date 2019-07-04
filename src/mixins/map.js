@@ -7,5 +7,6 @@ export default {
     store: store,
     computed: mapState({
         baseUrl: 'baseUrl',
+        systemConfig: 'systemConfig'
     })
 }

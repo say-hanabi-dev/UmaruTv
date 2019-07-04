@@ -1,9 +1,13 @@
 <template>
   <div class="home">
-    <div class="nav-local">
+    <div class="nav-local" :class="{ 'nav-paddingtop':systemConfig.showSlide }">
       <div class="container">
         <div class="scroll-screen">
-          <umr-slider v-if="false" screenType="slide" class="flex justify-center align-end"></umr-slider>
+          <umr-slider
+            v-if="systemConfig.showSlide"
+            screenType="slide"
+            class="flex justify-center align-end"
+          ></umr-slider>
         </div>
         <div class="plates flex justify-center">
           <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>
@@ -20,7 +24,7 @@
             :href="card.href"
           >
             <div class="umr-card-main" slot="umr-card-main">
-              <img :src="card.src" alt>
+              <img :src="card.src" alt />
             </div>
             <div class="umr-card-bottom" slot="umr-card-bottom">
               <h2>{{card.title}}</h2>
@@ -71,15 +75,15 @@
                     <div class="umr-card-sm-title">{{item.name}}</div>
                     <div class="umr-card-sm-states">
                       <span>
-                        <font-awesome-icon class="card-ico" icon="heart"/>
+                        <font-awesome-icon class="card-ico" icon="heart" />
                         {{item.collection}}
                       </span>
                       <span>
-                        <font-awesome-icon class="card-ico" icon="comment"/>
+                        <font-awesome-icon class="card-ico" icon="comment" />
                         {{item.danmaku}}
                       </span>
                       <span>
-                        <font-awesome-icon class="card-ico" icon="video"/>
+                        <font-awesome-icon class="card-ico" icon="video" />
                         {{item.watch}}
                       </span>
                     </div>
@@ -213,27 +217,27 @@ export default {
         currentType: "allanime",
         allAnime: [],
         timeline: {
-          whichDay: '1',
+          whichDay: "1",
           day: {
-            '7': {
+            "7": {
               date: "周日"
             },
-            '1': {
+            "1": {
               date: "周一"
             },
-            '2': {
+            "2": {
               date: "周二"
             },
-            '3': {
+            "3": {
               date: "周三"
             },
-            '4': {
+            "4": {
               date: "周四"
             },
-            '5': {
+            "5": {
               date: "周五"
             },
-            '6': {
+            "6": {
               date: "周六"
             }
           },
@@ -252,13 +256,11 @@ export default {
         num = 1;
       }
       this.videoGroup.currentPage = num;
-      axios
-        .get(`${this.baseUrl}/animes?page=${num}&paginate=16`)
-        .then(r => {
-          console.log(r.data);
-          this.videoGroup.lastPage = r.data.last_page;
-          this.catgory.allAnime = r.data.data;
-        });
+      axios.get(`${this.baseUrl}/animes?page=${num}&paginate=16`).then(r => {
+        console.log(r.data);
+        this.videoGroup.lastPage = r.data.last_page;
+        this.catgory.allAnime = r.data.data;
+      });
     },
     catTypeSwitch(to) {
       this.catgory.currentType = to;
@@ -268,14 +270,12 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get(`${this.baseUrl}/animes?page=1&paginate=16`)
-      .then(r => {
-        console.log(r.data);
-        this.videoGroup.currentPage = r.data.current_page;
-        this.videoGroup.lastPage = r.data.last_page;
-        this.catgory.allAnime = r.data.data;
-      });
+    axios.get(`${this.baseUrl}/animes?page=1&paginate=16`).then(r => {
+      console.log(r.data);
+      this.videoGroup.currentPage = r.data.current_page;
+      this.videoGroup.lastPage = r.data.last_page;
+      this.catgory.allAnime = r.data.data;
+    });
     axios.get(`${this.baseUrl}/animes/recently-updated`).then(r => {
       console.log(r.data);
       this.toollbarItems = r.data;
@@ -294,8 +294,10 @@ export default {
   width: 100%;
 }
 .nav-local {
-  padding-top: 3rem;
   background: white;
+}
+.nav-paddingtop {
+  padding-top: 3rem;
 }
 .plates a {
   padding: 1.5rem 1.5rem;

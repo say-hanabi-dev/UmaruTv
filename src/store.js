@@ -7,6 +7,9 @@ export default new Vuex.Store({
   state: {
     testContent: 'One',
     baseUrl: 'http://api.xldm.me',
+    systemConfig: {
+      showSlide: false
+    }
   },
   mutations: {
 
