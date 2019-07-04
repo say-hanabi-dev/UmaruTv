@@ -3,7 +3,7 @@
     <div class="nav-local">
       <div class="container">
         <div class="scroll-screen">
-          <umr-slider screenType="slide" class="flex justify-center align-end"></umr-slider>
+          <umr-slider v-if="false" screenType="slide" class="flex justify-center align-end"></umr-slider>
         </div>
         <div class="plates flex justify-center">
           <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>

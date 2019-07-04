@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     testContent: 'One',
-    baseUrl: 'http://umarutv.misakas.com',
+    baseUrl: 'http://api.xldm.me',
   },
   mutations: {
 
