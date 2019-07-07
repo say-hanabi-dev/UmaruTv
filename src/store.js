@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     testContent: 'One',
-    baseUrl: 'http://api.xldm.me',
+    baseUrl: 'https://api.xldm.me',
     systemConfig: {
       showSlide: false
     }
