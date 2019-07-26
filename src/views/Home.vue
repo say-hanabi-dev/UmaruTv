@@ -9,13 +9,13 @@
             class="flex justify-center align-end"
           ></umr-slider>
         </div>
-        <div class="plates flex justify-center">
+        <div v-if="systemConfig.showRecommand" class="plates flex justify-center">
           <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>
         </div>
       </div>
     </div>
     <div class="main">
-      <div class="recommend">
+      <div v-if="systemConfig.showRecommand" class="recommend">
         <div class="container space-between pure-g">
           <umr-card
             v-for="card in cardRec"

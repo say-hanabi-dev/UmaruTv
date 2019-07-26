@@ -7,7 +7,7 @@
       @click="$emit('set-currentpage',1)"
       :class="{ 'umr-pagination-btnactive':currentPage === 1 }"
     >1</button>
-    <button v-if="lastPage > 9 && currentPage > 8">···</button>
+    <button v-if="lastPage > 9 && currentPage >= 8">···</button>
     <div v-if="lastPage > 2">
       <button
         @click="$emit('set-currentpage',btnNum + n - 4)"
@@ -40,10 +40,10 @@ export default {
       }
     },
     btnNum: function() {
-      if (this.currentPage <= 8) {
+      if (this.currentPage < 8) {
         return 5;
       } else if (
-        this.currentPage > 8 &&
+        this.currentPage >= 8 &&
         this.currentPage <= this.lastPage - 7
       ) {
         return this.currentPage;
