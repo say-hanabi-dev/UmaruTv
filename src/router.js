@@ -30,6 +30,11 @@ export default new Router({
       component: Search
     },
     {
+      path: '/search',
+      name:'search',
+      component: Search
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

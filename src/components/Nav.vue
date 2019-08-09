@@ -9,7 +9,7 @@
         >{{guidelinks.content}}</a>
       </div>
       <div class="links-user pure-u-1-2">
-        <input id="search" name="search" v-model="search_keywords" @input="search()" type="text" placeholder="搜索">
+        <input id="search" name="search" v-model="keywords" @input="search()" type="text" placeholder="搜索">
         <a
           v-for="userlinks in userMsg"
           :href="userlinks.href"
@@ -54,7 +54,7 @@ export default {
           content: "注册"
         },
       ],
-      search_keywords: null
+      keywords: null
     };
   },
   methods: {
@@ -62,8 +62,8 @@ export default {
       this.$emit('call-auth',id)
     },
     search(){
-      if(this.search_keywords != null){
-        this.$router.push('/search/' + this.search_keywords)
+      if(this.keywords != null){
+        this.$router.push('/search/' + this.keywords)
       }
     }
   }
