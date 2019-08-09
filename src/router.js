@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Video from './views/Video.vue'
 import Catgory from './views/Catgory.vue'
+import Search from "./views/Search";
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/catgory/',
       name:'category',
       component: Catgory
+    },
+    {
+      path: '/search/:name',
+      name:'search',
+      component: Search
     },
     {
       path: '/about',

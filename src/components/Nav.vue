@@ -9,6 +9,7 @@
         >{{guidelinks.content}}</a>
       </div>
       <div class="links-user pure-u-1-2">
+        <input id="search" name="search" v-model="search_keywords" @input="search()" type="text" placeholder="搜索">
         <a
           v-for="userlinks in userMsg"
           :href="userlinks.href"
@@ -39,7 +40,7 @@ export default {
           id: "NAV_G2",
           href: "/#/catgory",
           content: "分类"
-        }
+        },
       ],
       userMsg: [
         {
@@ -52,12 +53,18 @@ export default {
           href: "javascript:void(0)",
           content: "注册"
         },
-      ]
+      ],
+      search_keywords: null
     };
   },
   methods: {
     callAuth(id) {
       this.$emit('call-auth',id)
+    },
+    search(){
+      if(this.search_keywords != null){
+        this.$router.push('/search/' + this.search_keywords)
+      }
     }
   }
 };
@@ -74,6 +81,15 @@ export default {
   display: inline-block;
   padding: 1rem;
   color: #dbdbdb;
+}
+#search {
+  height: 1.8rem;
+  line-height: 1.8rem;
+  display: inline-block;
+  padding-left: 1rem;
+  border: 0;
+  font-size: 0.876rem;
+  border-radius: 4px;
 }
 </style>
 
