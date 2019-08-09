@@ -3,7 +3,7 @@
         <ContentArea title="搜索">
             <div>
                 <label>
-                    <input class="ca-search" spellcheck="false" type="text" placeholder="输入关键词" v-model="keywords" @input="search()" autofocus/>
+                    <input class="ca-search" spellcheck="false" type="text" placeholder="输入关键词" v-model="keywords" autofocus/>
                 </label>
             </div>
         </ContentArea>
@@ -61,19 +61,10 @@
         },
         watch: {
             keywords: function(newName,oldName){
-                this.$router.push('/search/'+newName)
-               /* axios.get(`http://api.xldm.me/animes/search?name=${newName}`).then(result => {
+                // this.$router.push('/search/'+newName)
+                axios.get(`http://api.xldm.me/animes/search?name=${newName}`).then(result => {
                     this.cardRec = result.data;
-                });*/
-            }
-        },
-        methods: {
-            search(){
-                if(this.keywords != null){
-                    axios.get(`http://api.xldm.me/animes/search?name=${this.$route.params.name}`).then(result => {
-                        this.cardRec = result.data;
-                    });
-                }
+                });
             }
         },
         mounted: function () {
