@@ -10,7 +10,7 @@
             </div>
             <div class="links-user pure-u-1-2">
                 <div class="search">
-                    <div><input id="search" v-model="keywords" type="search" placeholder="搜索"></div>
+                    <div><input id="search" v-model="keywords" @keyup.enter="search" type="search" placeholder="搜索"></div>
                     <div><i class="mdui-icon material-icons search-icon" @click="search">search</i></div>
                 </div>
 
