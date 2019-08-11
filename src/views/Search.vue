@@ -52,7 +52,7 @@
         },
         methods:{
           queryData(keywords){
-              axios.get(`http://api.xldm.me/animes/search?name=${keywords}`).then(result => {
+              axios.get(`https://api.xldm.me/animes/search?name=${keywords}`).then(result => {
                   this.cardRec = result.data;
               });
           }
