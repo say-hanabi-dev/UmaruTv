@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 export default {
   props: ["screenType"],
   data: function() {

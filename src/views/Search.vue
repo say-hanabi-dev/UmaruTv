@@ -1,14 +1,5 @@
 <template>
     <div class="search">
-        <ContentArea title="搜索">
-            <div>
-                <label>
-                    <input class="ca-search" spellcheck="false" type="text" placeholder="输入关键词" v-model="keywords" autofocus/>
-                </label>
-            </div>
-        </ContentArea>
-
-        <br>
         <div class="container">
             <div class="pure-g flex space-between">
                 <Card
@@ -59,25 +50,29 @@
                 cardRec: []
             }
         },
+        methods:{
+          queryData(keywords){
+              axios.get(`http://api.xldm.me/animes/search?name=${keywords}`).then(result => {
+                  this.cardRec = result.data;
+              });
+          }
+        },
         watch: {
-            keywords: function(newName,oldName){
-                // this.$router.push('/search/'+newName)
-                axios.get(`http://api.xldm.me/animes/search?name=${newName}`).then(result => {
-                    this.cardRec = result.data;
-                });
+            '$route.params.name': function(){
+                this.queryData(this.$route.params.name);
             }
         },
         mounted: function () {
-            axios.get(`http://api.xldm.me/animes/search?name=${this.$route.params.name}`).then(result => {
-                this.cardRec = result.data;
-            });
+            this.queryData(this.$route.params.name);
         }
     }
 </script>
 
 <style scoped>
 @import "~mdui/dist/css/mdui.min.css";
-
+.search{
+    margin-top: 40px;
+}
 .ca-search {
     width: 100%;
     height: 50px;
