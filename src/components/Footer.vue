@@ -33,7 +33,7 @@ export default {
 .footer {
   background: black;
   color: #818181;
-  padding: 1.2rem 0 .6rem 0;;
+  padding: 1.2rem 1rem 0.6rem 1rem;
 }
 .theme,
 .about {
@@ -49,7 +49,12 @@ export default {
 }
 
 .copyright {
-    font-size: 13px;
-    margin-top: 1.2rem;
+  font-size: 13px;
+  margin-top: 1.2rem;
+}
+@media screen and (min-width: 35.5em) {
+  .footer {
+    padding: 1.2rem 0 0.6rem 0;
+  }
 }
 </style>

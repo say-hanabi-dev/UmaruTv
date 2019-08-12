@@ -118,6 +118,7 @@ export default {
         btnGroup.push(item);
       }
       this.epBtnGroup = btnGroup;
+      console.log(data);
     },
     createDanmaku() {
       this.videoPlayer.danmaku.send(
@@ -140,7 +141,7 @@ export default {
       .get(`${this.baseUrl}/animes/${animeID}/info?withVideo`)
       .then(r => {
         this.resource = r.data;
-        console.log(this.resource);
+        console.log(r.data);
         this.setBtnGroup(r.data);
         this.activeBtn(animeEpisode);
         axios

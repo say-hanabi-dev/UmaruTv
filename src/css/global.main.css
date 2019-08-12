@@ -20,6 +20,10 @@ p {
     margin-right: auto;
 }
 
+.main {
+    padding: 0 .3rem
+}
+
 .flex {
     display: flex;
 }
@@ -121,7 +125,11 @@ p {
 }
 
 
-@media screen and (min-width: 35.5em) {}
+@media screen and (min-width: 35.5em) {
+    .main {
+        padding: 0
+    }
+}
 
 @media screen and (min-width: 48em) {}
 

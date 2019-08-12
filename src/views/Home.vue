@@ -34,86 +34,89 @@
       </div>
       <div class="cardgroups">
         <div class="container">
-          <div class="cats pure-g">
-            <div class="pure-u-18-24">
-              <a
-                v-for="btn in catgoryButtons"
-                @click="catTypeSwitch(btn.id)"
-                :class="{ isActive:catgory.currentType === btn.id }"
-                class="btn-ellipse"
-                href="javascript:void(0)"
-                :key="btn.id"
-              >{{btn.content}}</a>
-            </div>
-            <div class="pure-u-6-24 toolbar-container">
-              <div class="toolbar">最近更新</div>
-            </div>
-          </div>
-          <div class="cards pure-g">
-            <div class="pure-u-18-24">
-              <div class="cats" v-if="catgory.currentType === 'timeline'">
+          <div class="pure-g">
+            <div class="pure-u-1 pure-u-sm-18-24">
+              <div class="cats">
                 <a
-                  v-for="(value,key) in catgory.timeline.day"
-                  @click="daySwitch(key)"
+                  v-for="btn in catgoryButtons"
+                  @click="catTypeSwitch(btn.id)"
+                  :class="{ isActive:catgory.currentType === btn.id }"
                   class="btn-ellipse"
-                  :class="{ isActive:catgory.timeline.whichDay === key }"
                   href="javascript:void(0)"
-                  :key="key"
-                >{{value.date}}</a>
+                  :key="btn.id"
+                >{{btn.content}}</a>
               </div>
-              <div class="pure-g flex space-between">
-                <umr-card
-                  v-for="item in cardItems"
-                  class="umr-card-sm pure-u-5-24"
-                  :href="'/#/video/' + item.id + '/ep/1'"
-                  :key="item.id"
-                >
-                  <div class="umr-card-main" slot="umr-card-main">
-                    <div class="card-cover" :style="{ backgroundImage:'url('+item.cover+')' }"></div>
+
+              <div class="cards pure-g">
+                <div class="pure-u-1">
+                  <div class="cats" v-if="catgory.currentType === 'timeline'">
+                    <a
+                      v-for="(value,key) in catgory.timeline.day"
+                      @click="daySwitch(key)"
+                      class="btn-ellipse"
+                      :class="{ isActive:catgory.timeline.whichDay === key }"
+                      href="javascript:void(0)"
+                      :key="key"
+                    >{{value.date}}</a>
                   </div>
-                  <div class="umr-card-bottom" slot="umr-card-bottom">
-                    <div class="umr-card-sm-title">{{item.name}}</div>
-                    <div class="umr-card-sm-states">
-                      <span>
-                        <font-awesome-icon class="card-ico" icon="heart" />
-                        {{item.collection}}
-                      </span>
-                      <span>
-                        <font-awesome-icon class="card-ico" icon="comment" />
-                        {{item.danmaku}}
-                      </span>
-                      <span>
-                        <font-awesome-icon class="card-ico" icon="video" />
-                        {{item.watch}}
-                      </span>
-                    </div>
+                  <div class="pure-g flex space-between">
+                    <umr-card
+                      v-for="item in cardItems"
+                      class="umr-card-sm pure-u-11-24 pure-u-sm-5-24"
+                      :href="'/#/video/' + item.id + '/ep/1'"
+                      :key="item.id"
+                    >
+                      <div class="umr-card-main" slot="umr-card-main">
+                        <div class="card-cover" :style="{ backgroundImage:'url('+item.cover+')' }"></div>
+                      </div>
+                      <div class="umr-card-bottom" slot="umr-card-bottom">
+                        <div class="umr-card-sm-title">{{item.name}}</div>
+                        <div class="umr-card-sm-states">
+                          <span>
+                            <font-awesome-icon class="card-ico" icon="heart" />
+                            {{item.collection}}
+                          </span>
+                          <span>
+                            <font-awesome-icon class="card-ico" icon="comment" />
+                            {{item.danmaku}}
+                          </span>
+                          <span>
+                            <font-awesome-icon class="card-ico" icon="video" />
+                            {{item.watch}}
+                          </span>
+                        </div>
+                      </div>
+                    </umr-card>
+                    <div class="flex-fix-3"></div>
+                    <div class="flex-fix-4"></div>
+                  </div>
+                  <umr-pagination
+                    v-if="catgory.currentType !== 'timeline'"
+                    @set-currentpage="setCurrentpage"
+                    :current-page="videoGroup.currentPage"
+                    :last-page="videoGroup.lastPage"
+                  ></umr-pagination>
+                </div>
+              </div>
+            </div>
+            <div class="pure-u-1 pure-u-sm-6-24 toolbar-container">
+              <div class="toolbar">最近更新</div>
+              <div class="pure-u-1">
+                <umr-card
+                  class="toolbar-items"
+                  v-for="(item,index) in toollbarItems"
+                  :href="'/#/video/' + item.id + '/ep/' + item.episodes"
+                  :key="item.name+item.id"
+                >
+                  <div class="pure-g" slot="umr-card-bottom">
+                    <span class="tag tag-black pure-u-2-24">{{index + 1}}</span>
+                    <span class="pure-u-22-24 toolbar-title">
+                      {{item.name}}
+                      <span class="toolbar-sub">更新至{{item.episodes}}集</span>
+                    </span>
                   </div>
                 </umr-card>
-                <div class="flex-fix-3"></div>
-                <div class="flex-fix-4"></div>
               </div>
-              <umr-pagination
-                v-if="catgory.currentType !== 'timeline'"
-                @set-currentpage="setCurrentpage"
-                :current-page="videoGroup.currentPage"
-                :last-page="videoGroup.lastPage"
-              ></umr-pagination>
-            </div>
-            <div class="pure-u-6-24 toolbar-container">
-              <umr-card
-                class="toolbar-items"
-                v-for="(item,index) in toollbarItems"
-                :href="'/#/video/' + item.id + '/ep/' + item.episodes"
-                :key="item.name+item.id"
-              >
-                <div class="pure-g" slot="umr-card-bottom">
-                  <span class="tag tag-black pure-u-2-24">{{index + 1}}</span>
-                  <span class="pure-u-22-24 toolbar-title">
-                    {{item.name}}
-                    <span class="toolbar-sub">更新至{{item.episodes}}集</span>
-                  </span>
-                </div>
-              </umr-card>
             </div>
           </div>
         </div>
@@ -332,10 +335,9 @@ export default {
 .toolbar {
   width: 100%;
   border-radius: 5px;
+  margin-bottom: 1.5rem;
 }
-.toolbar-container {
-  padding-left: 1rem;
-}
+
 .toolbar-title {
   padding: 0.5rem 0;
   display: inline-block;
@@ -372,6 +374,9 @@ export default {
   margin-bottom: 2rem;
 }
 @media screen and (min-width: 35.5em) {
+  .toolbar-container {
+    padding-left: 1rem;
+  }
 }
 
 @media screen and (min-width: 48em) {

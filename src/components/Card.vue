@@ -77,22 +77,30 @@ export default {};
 .umr-card-lr-cover,
 .card-cover {
   width: 180px;
-  min-height: 270px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   margin-right: 1rem;
 }
+.umr-card-lr-cover {
+  min-height: 270px;
+}
 .card-cover {
   width: 100%;
-  min-height: 320px;
+  min-height: 160px;
   border-radius: 5px 5px 0 0;
 }
 .umr-card-lr-main {
   flex-grow: 2;
   flex-basis: 60%;
 }
+.umr-card.umr-card-sm {
+  flex-basis: 49%;
+}
 @media screen and (min-width: 35.5em) {
+  .card-cover {
+    min-height: 320px;
+  }
 }
 
 @media screen and (min-width: 48em) {
