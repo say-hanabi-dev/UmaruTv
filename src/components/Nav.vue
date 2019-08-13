@@ -47,12 +47,12 @@ export default {
       guideMsg: [
         {
           id: "NAV_G0",
-          href: "",
+          href: "#",
           content: "首页"
         },
         {
           id: "NAV_G1",
-          href: "",
+          href: "#",
           content: "论坛"
         },
         {
