@@ -4,7 +4,7 @@
       <div class="pure-u-1 pure-u-sm-18-24">
         <div class="player" ref="player"></div>
         <div class="danmaku">
-          <input type="text" v-model="curDanmaku" @keyup.enter="createDanmaku" placeholder="输入弹幕">
+          <input type="text" v-model="curDanmaku" @keyup.enter="createDanmaku" placeholder="输入弹幕" />
         </div>
         <div class="video-source">
           <umr-card>
@@ -86,9 +86,7 @@ export default {
       this.activeBtn(num);
       axios
         .get(
-          `${this.baseUrl}/animes/video/${
-            this.resource.video[num - 1].id
-          }/resource`
+          `${this.baseUrl}/animes/video/${this.resource.video[num - 1].id}/resource`
         )
         .then(r => {
           console.log(r.data);
@@ -127,7 +125,7 @@ export default {
           color: "#fff",
           type: "right"
         },
-        () => {
+        function() {
           console.log("ok");
         }
       );
@@ -137,36 +135,32 @@ export default {
   created() {
     let animeID = this.$route.params.id;
     let animeEpisode = this.$route.params.episode;
-    axios
-      .get(`${this.baseUrl}/animes/${animeID}/info?withVideo`)
-      .then(r => {
-        this.resource = r.data;
-        console.log(r.data);
-        this.setBtnGroup(r.data);
-        this.activeBtn(animeEpisode);
-        axios
-          .get(
-            `${this.baseUrl}/animes/video/${
-              r.data.video[animeEpisode - 1].id
-            }/resource`
-          )
-          .then(r => {
-            console.log(r.data);
-            let animeEpisode = this.$route.params.episode;
-            this.videoPlayer = new DPlayer({
-              container: this.$refs.player,
-              screenshot: true,
-              video: {
-                url: r.data[this.videoResourceIndex].resource,
-                type: "hls"
-              },
-              danmaku: {
-                id: animeID,
-                api: `${this.baseUrl}/animes/video/danmaku/`
-              }
-            });
+    axios.get(`${this.baseUrl}/animes/${animeID}/info?withVideo`).then(r => {
+      this.resource = r.data;
+      console.log(r.data);
+      this.setBtnGroup(r.data);
+      this.activeBtn(animeEpisode);
+      axios
+        .get(
+          `${this.baseUrl}/animes/video/${r.data.video[animeEpisode - 1].id}/resource`
+        )
+        .then(r => {
+          console.log(r.data);
+          let animeEpisode = this.$route.params.episode;
+          this.videoPlayer = new DPlayer({
+            container: this.$refs.player,
+            screenshot: true,
+            video: {
+              url: r.data[this.videoResourceIndex].resource,
+              type: "hls"
+            },
+            danmaku: {
+              id: animeID,
+              api: `${this.baseUrl}/animes/video/danmaku/`
+            }
           });
-      });
+        });
+    });
   }
 };
 </script>
