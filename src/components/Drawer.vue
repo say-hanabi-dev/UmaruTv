@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ["isShow"],
+  props: ["isShow", "clickClose"],
   data: function() {
     return {
       isMaskShow: false,
@@ -29,8 +29,10 @@ export default {
   },
   watch: {
     isShow(val) {
+      setTimeout(() => {
+        this.isDrawerShow = val;
+      }, 50);
       this.isMaskShow = val;
-      this.isDrawerShow = val;
     }
   }
 };
@@ -48,8 +50,9 @@ export default {
 }
 
 .drawerinner {
-    height: 100%;
-    display: flex;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
+
 </style>

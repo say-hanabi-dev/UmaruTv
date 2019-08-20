@@ -7,16 +7,20 @@
     <umaru-footer></umaru-footer>
     <umaru-drawer @close-drawer="closeDrawer" :is-show="isAuthShow">
       <template v-slot:drawerinner>
+        <div @click="closeDrawer" class="authboard-mask"></div>
         <div class="authboard">
+          <div @click="closeDrawer" class="authboard-close-btn">
+            <font-awesome-icon icon="times" size="lg" />
+          </div>
           <div class="auth-title">{{authTitle}}</div>
-          <input type="text" v-model="auth.mail" placeholder="邮箱">
-          <input type="text" v-model="auth.passwd" placeholder="密码">
+          <input type="text" v-model="auth.mail" placeholder="邮箱" />
+          <input type="text" v-model="auth.passwd" placeholder="密码" />
           <input
             type="text"
             v-if="auth.type === 'reg'"
             v-model="auth.passwdconfirm"
             placeholder="确认密码"
-          >
+          />
           <div class="auth-row">
             <a href v-if="auth.type === 'login'">忘记密码？</a>
           </div>
@@ -101,6 +105,8 @@ export default {
   border-radius: 0.5rem 0 0 0.5rem;
   padding: 1.5rem 1.5rem 1.5rem 1.5rem;
   min-height: 300px;
+  position: relative;
+  z-index: 2;
 }
 
 .authboard input {
@@ -147,5 +153,20 @@ export default {
 .auth-submit,
 .authboard input {
   margin-top: 1rem;
+}
+
+.authboard-mask {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.authboard-close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  padding: 0.6rem;
+  cursor: pointer;
 }
 </style>
