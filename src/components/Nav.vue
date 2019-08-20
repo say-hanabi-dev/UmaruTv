@@ -25,6 +25,9 @@
             </div>
           </div>
         </div>
+
+        <div @click="closeSearchbar" v-show="isMaskShow" class="globalmask"></div>
+
         <div class="search-trigger" @click="showSearchbar">
           <i class="mdui-icon material-icons search-icon">search</i>
         </div>
@@ -74,7 +77,8 @@ export default {
         }
       ],
       keywords: null,
-      isSarchbarActive: false
+      isSarchbarActive: false,
+      isMaskShow: false
     };
   },
   methods: {
@@ -84,10 +88,16 @@ export default {
     search() {
       if (this.keywords != null) {
         this.$router.push("/search/" + this.keywords);
+        this.closeSearchbar();
       }
     },
     showSearchbar() {
       this.isSarchbarActive = true;
+      this.isMaskShow = true;
+    },
+    closeSearchbar() {
+      this.isSarchbarActive = false;
+      this.isMaskShow = false;
     }
   }
 };
@@ -127,7 +137,7 @@ export default {
   padding: 1rem;
   position: fixed;
   left: 0;
-  z-index: 1;
+  z-index: 31;
 }
 
 .searchbar.searchbar-active {
