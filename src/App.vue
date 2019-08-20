@@ -24,7 +24,7 @@
           <div class="auth-row">
             <a href v-if="auth.type === 'login'">忘记密码？</a>
           </div>
-          <button class="auth-submit">确认</button>
+          <button @click="authSubmit" class="auth-submit">确认</button>
         </div>
       </template>
     </umaru-drawer>
@@ -40,6 +40,7 @@ import Footer from "./components/Footer";
 import Video from "./views/Video.vue";
 import Drawer from "./components/Drawer";
 import map from "./mixins/map.js";
+import axios from "axios";
 
 export default {
   name: "app",
@@ -64,6 +65,7 @@ export default {
         type: "login",
         passwd: "",
         mail: "",
+        name: "",
         passwdconfirm: ""
       }
     };
@@ -76,11 +78,38 @@ export default {
   methods: {
     callAuth(id) {
       window.console.log(id);
-      this.isAuthShow = true;
+      window.setTimeout(() => {
+        this.isAuthShow = true;
+      }, 50);
       this.auth.type = id;
     },
     closeDrawer() {
       this.isAuthShow = false;
+    },
+    authSubmit() {
+      switch (this.auth.type) {
+        case "login": {
+          let data = {
+            email: this.auth.mail,
+            password: this.auth.passwd
+          };
+          axios.post(`${this.baseUrl}/login`, data).then(r => {
+            console.log(r);
+          });
+          return;
+        }
+        case "reg": {
+          let data = {
+            name: this.auth.name,
+            email: this.auth.mail,
+            password: this.auth.passwd
+          };
+          axios.post(`${this.baseUrl}/register`, data).then(r => {
+            console.log(r);
+          });
+          return;
+        }
+      }
     }
   }
 };

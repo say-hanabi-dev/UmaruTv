@@ -194,14 +194,15 @@ export default {
   },
   created() {
     axios.get(`${this.baseUrl}/animes/tags`).then(r => {
-      this.catList.local = r.data.local;
-      this.catList.style = r.data.style;
-      this.catList.season = r.data.season;
-      this.catList.type = r.data.type;
+      console.log(r);
+      this.catList.local = r.data.area;
+      // this.catList.style = r.data.style;
+      // this.catList.season = r.data.season;
+      // this.catList.type = r.data.type;
 
-      this.setCat(this.allSeason, "season");
+      // this.setCat(this.allSeason, "season");
       this.setCat(this.allLocal, "local");
-      this.setCat(this.allStyle, "style");
+      // this.setCat(this.allStyle, "style");
       this.setCat(this.allType, "type", true);
     });
   }

@@ -29,7 +29,7 @@ export default {
   },
   watch: {
     isShow(val) {
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.isDrawerShow = val;
       }, 50);
       this.isMaskShow = val;
