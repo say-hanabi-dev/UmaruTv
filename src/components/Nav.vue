@@ -4,7 +4,8 @@
       <div class="links-guide pure-u-1-2">
         <a
           v-for="guidelinks in guideMsg"
-          :href="guidelinks.href"
+          href="javascript:void(0)"
+          @click="routerPush(guidelinks.outside,guidelinks.href)"
           :key="guidelinks.id"
         >{{guidelinks.content}}</a>
       </div>
@@ -44,24 +45,29 @@
 </template>
 
 <script>
+import routerEvent from "../mixins/routerEvent.js";
 export default {
+  mixins: [routerEvent],
   data: function() {
     return {
       guideMsg: [
         {
           id: "NAV_G0",
           href: "/",
-          content: "首页"
+          content: "首页",
+          outside: false
         },
         {
           id: "NAV_G1",
           href: "#",
-          content: "论坛"
+          content: "论坛",
+          outside: true
         },
         {
           id: "NAV_G2",
-          href: "/#/catgory",
-          content: "分类"
+          href: "catgory",
+          content: "分类",
+          outside: false
         }
       ],
       userMsg: [
