@@ -4,15 +4,12 @@
       <div v-for="(value,key) in catList" :key="key" class="catbar pure-u-1">
         <span class="title">{{catbarName(key)}}</span>
         <input v-if="key === 'season'" type="number" name id="year" value="2019" />
-        <button
-          @click="setCat(catAll(key),key,true)"
-          :class="{ active: cat[key].length === catList[key].length }"
-        >全部</button>
+        <button @click="setCat(catAll(key),key,true,true)" :class="{ active: btn.isAll[key] }">全部</button>
         <button
           v-for="item in value"
-          @click="setCat(item.id,key,true)"
-          :key="item.name"
-          :class="{ active: cat[key].length !== catList[key].length && cat[key][0] === item.id }"
+          @click="setCat(item.id,key,true,false,item.id)"
+          :key="item.name+item.id"
+          :class="{ active: btn.catSet[key].has(item.id) && !btn.isAll[key] }"
         >{{item.name}}</button>
       </div>
       <div class="animelist pure-u-1">
@@ -110,12 +107,27 @@ export default {
         style: [],
         type: []
       },
+
       tagId: "",
       catList: {
         season: [],
         local: [],
         style: [],
         type: []
+      },
+      btn: {
+        isAll: {
+          season: true,
+          local: true,
+          style: true,
+          type: true
+        },
+        catSet: {
+          season: Set,
+          local: Set,
+          style: Set,
+          type: Set
+        }
       },
       animeList: []
     };
@@ -145,21 +157,35 @@ export default {
           return "类型";
       }
     },
-    setCat(val, type, ifgetlist) {
-      this.cat[type] = [];
+    setCat(val, type, ifgetlist, isTargetAll, btnid) {
+      if (this.btn.isAll[type] && !isTargetAll) {
+        this.cat[type] = [];
+      }
+
+      let catSet = new Set(this.cat[type]);
+      if (catSet.has(btnid)) {
+        catSet.delete(btnid);
+      } else {
+        catSet.add(val);
+      }
 
       if (typeof val === "number") {
-        this.cat[type].push(val);
+        this.cat[type] = [...catSet];
+        console.log(this.cat[type]);
       } else {
         for (let i = 0; i <= val.length - 1; i++) {
-          this.cat[type].push(val[i]);
+          catSet.add(val[i]);
         }
+        this.cat[type] = [...catSet];
       }
 
       if (ifgetlist === true) {
         this.getTagId();
         this.getAnimeList();
       }
+
+      this.setCurrentpage(1);
+      this.setActiveBtn(type, isTargetAll, catSet);
     },
     getTagId() {
       let tagList = [];
@@ -196,6 +222,14 @@ export default {
 
       this.currentPage = num;
       this.getAnimeList(num);
+    },
+    setActiveBtn(type, isTargetAll, catSet) {
+      if (!isTargetAll) {
+        this.btn.isAll[type] = false;
+      } else {
+        this.btn.isAll[type] = true;
+      }
+      this.btn.catSet[type] = catSet;
     }
   },
   created() {
@@ -206,10 +240,10 @@ export default {
       // this.catList.season = r.data.season;
       // this.catList.type = r.data.type;
 
-      // this.setCat(this.allSeason, "season");
-      this.setCat(this.allLocal, "local");
-      // this.setCat(this.allStyle, "style");
-      this.setCat(this.allType, "type", true);
+      // this.setCat(this.allSeason, "season", false, true);
+      this.setCat(this.allLocal, "local", false, true);
+      // this.setCat(this.allStyle, "style", false, true);
+      this.setCat(this.allType, "type", true, true);
     });
   }
 };
