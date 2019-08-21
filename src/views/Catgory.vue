@@ -3,7 +3,7 @@
     <div class="container pure-g">
       <div v-for="(value,key) in catList" :key="key" class="catbar pure-u-1">
         <span class="title">{{catbarName(key)}}</span>
-        <input v-if="key === 'season'" type="number" name id="year" value="2019">
+        <input v-if="key === 'season'" type="number" name id="year" value="2019" />
         <button
           @click="setCat(catAll(key),key,true)"
           :class="{ active: cat[key].length === catList[key].length }"
@@ -21,7 +21,12 @@
           :current-page="currentPage"
           :last-page="lastPage"
         ></umr-pagination>
-        <umr-card v-for="card in animeList" :href="'/#/video/' + card.id + '/ep/1'" :key="card.id">
+        <umr-card
+          v-for="card in animeList"
+          href="javascript:void(0)"
+          @click.native="routerPush(false,`/video/${card.id}/ep/1`)"
+          :key="card.id"
+        >
           <div slot="umr-card-lr" class="umr-card-lr">
             <div :style="{ backgroundImage: 'url('+card.cover+')' }" class="umr-card-lr-cover"></div>
             <div class="umr-card-lr-main">
@@ -51,11 +56,12 @@
 import Card from "@/components/Card";
 import Pagination from "@/components/Pagination";
 import map from "../mixins/map.js";
+import routerEvent from "../mixins/routerEvent.js";
 
 import axios from "axios";
 
 export default {
-  mixins: [map],
+  mixins: [map, routerEvent],
   components: {
     "umr-card": Card,
     "umr-pagination": Pagination

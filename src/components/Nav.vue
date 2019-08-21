@@ -65,7 +65,7 @@ export default {
         },
         {
           id: "NAV_G2",
-          href: "catgory",
+          href: "/catgory",
           content: "分类",
           outside: false
         }
@@ -95,6 +95,7 @@ export default {
       if (this.keywords != null) {
         this.$router.push("/search/" + this.keywords);
         this.closeSearchbar();
+        this.keywords = null;
       }
     },
     showSearchbar() {

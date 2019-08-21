@@ -63,7 +63,8 @@
                     <umr-card
                       v-for="item in cardItems"
                       class="umr-card-sm pure-u-11-24 pure-u-sm-5-24"
-                      :href="'/#/video/' + item.id + '/ep/1'"
+                      href="javascript:void(0)"
+                      @click.native="routerPush(false,`/video/${item.id}/ep/1`)"
                       :key="item.id"
                     >
                       <div class="umr-card-main" slot="umr-card-main">
@@ -105,7 +106,8 @@
                 <umr-card
                   class="toolbar-items"
                   v-for="(item,index) in toollbarItems"
-                  :href="'/#/video/' + item.id + '/ep/' + item.episodes"
+                  href="javascript:void(0)"
+                  @click.native="routerPush(false,`/video/${item.id}/ep/${item.episodes}`)"
                   :key="item.name+item.id"
                 >
                   <div class="pure-g" slot="umr-card-bottom">
@@ -131,12 +133,13 @@ import Slider from "@/components/Slider";
 import Card from "@/components/Card";
 import Pagination from "@/components/Pagination";
 import map from "../mixins/map.js";
+import routerEvent from "../mixins/routerEvent.js";
 
 import axios from "axios";
 
 export default {
   name: "home",
-  mixins: [map],
+  mixins: [map, routerEvent],
   components: {
     "umr-slider": Slider,
     "umr-card": Card,
