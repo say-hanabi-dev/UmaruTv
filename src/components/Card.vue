@@ -72,6 +72,7 @@ export default {};
   border: 1px solid gray;
   color: #353b47;
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 .umr-card-lr-cover,
@@ -80,10 +81,10 @@ export default {};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  margin-right: 1rem;
 }
 .umr-card-lr-cover {
-  min-height: 270px;
+  height: 270px;
+  flex-basis: 100%;
 }
 .card-cover {
   width: 100%;
@@ -93,6 +94,12 @@ export default {};
 .umr-card-lr-main {
   flex-grow: 2;
   flex-basis: 60%;
+  height: 100%;
+  max-height: 270px;
+  overflow-y: scroll;
+}
+.umr-card-lr-main::-webkit-scrollbar {
+  display: none;
 }
 .umr-card.umr-card-sm {
   flex-basis: 49%;
@@ -109,6 +116,10 @@ export default {};
 @media screen and (min-width: 64em) {
   .umr-card.umr-card-sm {
     flex-basis: 23%;
+  }
+  .umr-card-lr-cover {
+    flex-basis: unset;
+    margin-right: 1rem;
   }
 }
 

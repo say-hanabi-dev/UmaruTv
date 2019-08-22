@@ -12,7 +12,7 @@
           :class="{ active: btn.catSet[key].has(item.id) && !btn.isAll[key] }"
         >{{item.name}}</button>
       </div>
-      <div class="animelist pure-u-1">
+      <div class="animelist pure-g pure-u-1">
         <umr-pagination
           @set-currentpage="setCurrentpage"
           :current-page="currentPage"
@@ -259,13 +259,14 @@ export default {
   width: 100%;
   padding: 1rem;
   padding-bottom: 0;
+  font-size: 12px;
 }
 .catbar .title {
-  font-size: 18px;
   margin-right: 1rem;
   background-color: black;
   padding: 0.4rem 1rem;
   color: white;
+  font-weight: bold;
 }
 .catbar button {
   padding: 0.4rem 1rem;
@@ -298,7 +299,7 @@ export default {
   flex-wrap: wrap;
 }
 .animelist .umr-card {
-  width: 49%;
+  width: 98%;
   padding: 0.5rem;
 }
 .animelist .title {
@@ -316,5 +317,13 @@ export default {
 }
 .animelist .umr-pagination {
   margin-block-end: 1rem;
+}
+@media screen and (min-width: 35.5em) {
+  .animelist .umr-card {
+    width: 49%;
+  }
+  .catbar {
+    font-size: 14px;
+  }
 }
 </style>
