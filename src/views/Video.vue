@@ -1,10 +1,33 @@
 <template>
   <div class="video">
     <div class="container pure-g">
-      <div class="pure-u-1 pure-u-sm-18-24">
+      <div class="pure-u-1 pure-u-md-18-24">
         <div class="player" ref="player"></div>
         <div class="danmaku">
           <input type="text" v-model="curDanmaku" @keyup.enter="createDanmaku" placeholder="输入弹幕" />
+        </div>
+        <div class="video-plugin-sm">
+          <div class="video-epgroup">
+            <div class="group-title">分集列表</div>
+            <div class="btn-group">
+              <button
+                v-for="(item,index) in epBtnGroup"
+                :key="item.id"
+                :class="{ 'active':item.isActive === true }"
+                @click="selectEp(index+1)"
+              >{{index+1}}</button>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+              <span class="fix"></span>
+            </div>
+          </div>
         </div>
         <div class="video-source">
           <umr-card>
@@ -26,7 +49,7 @@
           </umr-card>
         </div>
       </div>
-      <div class="pure-u-1 pure-u-sm-6-24">
+      <div class="pure-u-1 pure-u-md-6-24">
         <div class="video-plugin">
           <div class="video-epgroup">
             <div class="group-title">分集列表</div>
@@ -172,6 +195,7 @@ export default {
 }
 .video-plugin {
   padding: 0 1rem;
+  display: none;
 }
 .video-epgroup {
   background: white;
@@ -223,5 +247,16 @@ export default {
   padding: 0.5rem;
   background-color: rgb(245, 246, 248);
   border: 1px solid;
+}
+.video-plugin-sm {
+  margin-top: 2.5rem;
+}
+@media screen and (min-width: 48em) {
+  .video-plugin-sm {
+    display: none;
+  }
+  .video-plugin {
+    display: block;
+  }
 }
 </style>
