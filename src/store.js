@@ -11,6 +11,7 @@ export default new Vuex.Store({
       showSlide: false,
       showRecommand: false,
     },
+    requestId: 0,
     components: {
       message: []
     },
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     REMOVE_MESSAGE(state) {
       state.components.message.shift()
+    },
+    REQUEST_COUNT(state) {
+      state.requestId += 1
     }
   },
   actions: {

@@ -32,8 +32,8 @@
     </umaru-drawer>
     <div class="message-box">
       <umaru-message
-        v-for="message in components.message"
-        :key="message.content"
+        v-for="(message,index) in components.message"
+        :key="message.content+requestId+index"
         :content="message.content"
       ></umaru-message>
     </div>
@@ -117,6 +117,7 @@ export default {
           let formData = new FormData();
           formData.append("email", data.email);
           formData.append("password", data.password);
+          this.reqCount();
           axios
             .post(`${this.baseUrl}/login`, formData)
             .then(r => {
@@ -129,6 +130,7 @@ export default {
             .catch(error => {
               window.console.log(error.response);
               if (error.response.status === 422) {
+                console.log(this.requestId);
                 this.callMessage({ content: "登录失败" });
                 this.getErrContent(error.response.data.errors);
               }
@@ -147,6 +149,7 @@ export default {
           formData.append("email", data.email);
           formData.append("password", data.password);
           formData.append("password_confirmation", data.password_confirmation);
+          this.reqCount();
           axios
             .post(`${this.baseUrl}/register`, formData)
             .then(r => {

@@ -135,6 +135,7 @@ export default {
       this.isMaskShow = false;
     },
     logout() {
+      this.reqCount();
       axios.post(`${this.baseUrl}/logout`).then(r => {
         window.console.log(r);
         this.callMessage({ content: "登出成功" });
