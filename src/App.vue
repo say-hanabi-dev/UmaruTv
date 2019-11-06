@@ -13,10 +13,11 @@
             <font-awesome-icon icon="times" size="lg" />
           </div>
           <div class="auth-title">{{authTitle}}</div>
+          <input v-if="auth.type === 'reg'" type="text" v-model="auth.name" placeholder="用户名" />
           <input type="text" v-model="auth.mail" placeholder="邮箱" />
-          <input type="text" v-model="auth.passwd" placeholder="密码" />
+          <input type="password" v-model="auth.passwd" placeholder="密码" />
           <input
-            type="text"
+            type="password"
             v-if="auth.type === 'reg'"
             v-model="auth.passwdconfirm"
             placeholder="确认密码"
@@ -24,10 +25,18 @@
           <div class="auth-row">
             <a href v-if="auth.type === 'login'">忘记密码？</a>
           </div>
+          <div class="message-error" v-show="auth.message">{{auth.message}}</div>
           <button @click="authSubmit" class="auth-submit">确认</button>
         </div>
       </template>
     </umaru-drawer>
+    <div class="message-box">
+      <umaru-message
+        v-for="message in components.message"
+        :key="message.content"
+        :content="message.content"
+      ></umaru-message>
+    </div>
   </div>
 </template>
 
@@ -40,6 +49,7 @@ import Footer from "./components/Footer";
 import Video from "./views/Video.vue";
 import Drawer from "./components/Drawer";
 import map from "./mixins/map.js";
+import Message from "./components/Message";
 import axios from "axios";
 
 export default {
@@ -66,14 +76,24 @@ export default {
         passwd: "",
         mail: "",
         name: "",
-        passwdconfirm: ""
+        passwdconfirm: "",
+        message: ""
       }
     };
   },
   components: {
     "umaru-nav": Nav,
     "umaru-footer": Footer,
+    "umaru-message": Message,
     "umaru-drawer": Drawer
+  },
+  watch: {
+    "auth.type": function() {
+      this.auth.passwd = "";
+      this.auth.mail = "";
+      this.auth.name = "";
+      this.auth.passwdconfirm = "";
+    }
   },
   methods: {
     callAuth(id) {
@@ -85,6 +105,7 @@ export default {
     },
     closeDrawer() {
       this.isAuthShow = false;
+      this.auth.message = "";
     },
     authSubmit() {
       switch (this.auth.type) {
@@ -93,23 +114,68 @@ export default {
             email: this.auth.mail,
             password: this.auth.passwd
           };
-          axios.post(`${this.baseUrl}/login`, data).then(r => {
-            console.log(r);
-          });
+          let formData = new FormData();
+          formData.append("email", data.email);
+          formData.append("password", data.password);
+          axios
+            .post(`${this.baseUrl}/login`, formData)
+            .then(r => {
+              let userData = {
+                email: data.email
+              };
+              this.setUser(userData);
+              this.callMessage({ content: "登录成功" });
+            })
+            .catch(error => {
+              window.console.log(error.response);
+              if (error.response.status === 422) {
+                this.callMessage({ content: "登录失败" });
+                this.getErrContent(error.response.data.errors);
+              }
+            });
           return;
         }
         case "reg": {
           let data = {
             name: this.auth.name,
             email: this.auth.mail,
-            password: this.auth.passwd
+            password: this.auth.passwd,
+            password_confirmation: this.auth.passwdconfirm
           };
-          axios.post(`${this.baseUrl}/register`, data).then(r => {
-            console.log(r);
-          });
+          let formData = new FormData();
+          formData.append("name", data.name);
+          formData.append("email", data.email);
+          formData.append("password", data.password);
+          formData.append("password_confirmation", data.password_confirmation);
+          axios
+            .post(`${this.baseUrl}/register`, formData)
+            .then(r => {
+              let userData = {
+                email: data.email
+              };
+              this.setUser(userData);
+              this.callMessage({ content: "注册成功" });
+            })
+            .catch(error => {
+              window.console.log(error.response);
+              if (error.response.status === 422) {
+                this.callMessage({ content: "注册失败" });
+                this.getErrContent(error.response.data.errors);
+              }
+            });
           return;
         }
       }
+    },
+    showAuthMessage(val) {
+      this.auth.message = val;
+    },
+    getErrContent(arr) {
+      let errContents = "";
+      for (let key in arr) {
+        errContents = errContents + arr[key] + " ";
+      }
+      this.showAuthMessage(errContents);
     }
   }
 };

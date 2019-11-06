@@ -1,12 +1,24 @@
 import store from '../store'
 import {
-    mapState
+    mapActions,
+    mapState,
+    mapMutations
 } from 'vuex';
 
 export default {
     store: store,
     computed: mapState({
         baseUrl: 'baseUrl',
-        systemConfig: 'systemConfig'
-    })
+        systemConfig: 'systemConfig',
+        user: 'user',
+        components: 'components'
+    }),
+    methods: {
+        ...mapMutations({
+            setUser: 'SET_USER'
+        }),
+        ...mapActions({
+            callMessage: 'CALL_MESSAGE'
+        })
+    }
 }

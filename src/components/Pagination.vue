@@ -71,7 +71,7 @@ export default {
   color: white;
 }
 .umr-pagination button {
-  width: 30px;
+  min-width: 30px;
   height: 30px;
   background-color: white;
   border-radius: 50%;

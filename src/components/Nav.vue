@@ -33,12 +33,22 @@
           <i class="mdui-icon material-icons search-icon">search</i>
         </div>
 
-        <a
-          v-for="userlinks in userMsg"
-          :href="userlinks.href"
-          :key="userlinks.id"
-          @click="callAuth(userlinks.id)"
-        >{{userlinks.content}}</a>
+        <div v-if="user.email === ''" class="auth">
+          <a
+            v-for="authlinks in authMenu"
+            :href="authlinks.href"
+            :key="authlinks.id"
+            @click="callAuth(authlinks.id)"
+          >{{authlinks.content}}</a>
+        </div>
+        <div v-if="user.email !== ''" class="auth">
+          <a
+            v-for="userlinks in userMenu"
+            :href="userlinks.href"
+            :key="userlinks.id"
+            @click="userlinks.method"
+          >{{userlinks.content}}</a>
+        </div>
       </div>
     </div>
   </div>
@@ -46,8 +56,10 @@
 
 <script>
 import routerEvent from "../mixins/routerEvent.js";
+import map from "../mixins/map.js";
+import axios from "axios";
 export default {
-  mixins: [routerEvent],
+  mixins: [map, routerEvent],
   data: function() {
     return {
       guideMsg: [
@@ -70,7 +82,7 @@ export default {
           outside: false
         }
       ],
-      userMsg: [
+      authMenu: [
         {
           id: "login",
           href: "javascript:void(0)",
@@ -80,6 +92,22 @@ export default {
           id: "reg",
           href: "javascript:void(0)",
           content: "注册"
+        }
+      ],
+      userMenu: [
+        {
+          id: "login",
+          href: "javascript:void(0)",
+          content: "",
+          method: function() {
+            window.console.log("待定");
+          }
+        },
+        {
+          id: "reg",
+          href: "javascript:void(0)",
+          content: "登出",
+          method: this.logout
         }
       ],
       keywords: null,
@@ -105,6 +133,12 @@ export default {
     closeSearchbar() {
       this.isSarchbarActive = false;
       this.isMaskShow = false;
+    },
+    logout() {
+      axios.post(`${this.baseUrl}/logout`).then(r => {
+        window.console.log(r);
+        this.callMessage({ content: "登出成功" });
+      });
     }
   }
 };
@@ -171,6 +205,10 @@ export default {
 }
 .search-icon:hover {
   cursor: pointer;
+}
+
+.auth {
+  display: inline-block;
 }
 
 @media screen and (min-width: 35.5em) {

@@ -45,7 +45,7 @@ p {
 }
 
 .tag {
-    height: 1.3rem;
+    height: 1.2rem;
     width: 1.3rem;
     border: 2px solid;
     text-align: center;
@@ -122,6 +122,21 @@ p {
 
 .cutin-right-leave-to {
     transform: translateX(300px);
+}
+
+.message-error {
+    color: rgb(223, 86, 31);
+}
+
+.message-box {
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 180px;
+    height: 0;
+    z-index: 50;
 }
 
 
