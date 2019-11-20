@@ -5,12 +5,16 @@
         <a
           v-for="guidelinks in guideMsg"
           href="javascript:void(0)"
-          @click="routerPush(guidelinks.outside,guidelinks.href)"
+          @click="routerPush(guidelinks.outside, guidelinks.href)"
           :key="guidelinks.id"
-        >{{guidelinks.content}}</a>
+          >{{ guidelinks.content }}</a
+        >
       </div>
       <div class="links-user pure-u-1-2">
-        <div class="searchbar" :class="{ 'searchbar-active':isSarchbarActive }">
+        <div
+          class="searchbar"
+          :class="{ 'searchbar-active': isSarchbarActive }"
+        >
           <div class="search">
             <div>
               <input
@@ -22,12 +26,18 @@
               />
             </div>
             <div>
-              <i class="mdui-icon material-icons search-icon" @click="search">search</i>
+              <i class="mdui-icon material-icons search-icon" @click="search"
+                >search</i
+              >
             </div>
           </div>
         </div>
 
-        <div @click="closeSearchbar" v-show="isMaskShow" class="globalmask"></div>
+        <div
+          @click="closeSearchbar"
+          v-show="isMaskShow"
+          class="globalmask"
+        ></div>
 
         <div class="search-trigger" @click="showSearchbar">
           <i class="mdui-icon material-icons search-icon">search</i>
@@ -39,7 +49,8 @@
             :href="authlinks.href"
             :key="authlinks.id"
             @click="callAuth(authlinks.id)"
-          >{{authlinks.content}}</a>
+            >{{ authlinks.content }}</a
+          >
         </div>
         <div v-if="user.email !== ''" class="auth">
           <a
@@ -47,7 +58,8 @@
             :href="userlinks.href"
             :key="userlinks.id"
             @click="userlinks.method"
-          >{{userlinks.content}}</a>
+            >{{ userlinks.content }}</a
+          >
         </div>
       </div>
     </div>
@@ -60,6 +72,9 @@ import map from "../mixins/map.js";
 import axios from "axios";
 export default {
   mixins: [map, routerEvent],
+  created() {
+    this.userMenu[0].content = this.user.email;
+  },
   data: function() {
     return {
       guideMsg: [
@@ -96,7 +111,7 @@ export default {
       ],
       userMenu: [
         {
-          id: "login",
+          id: "username",
           href: "javascript:void(0)",
           content: "",
           method: function() {
@@ -114,6 +129,11 @@ export default {
       isSarchbarActive: false,
       isMaskShow: false
     };
+  },
+  watch: {
+    "user.email": function(val) {
+      this.userMenu[0].content = val;
+    }
   },
   methods: {
     callAuth(id) {
@@ -138,6 +158,7 @@ export default {
       this.reqCount();
       axios.post(`${this.baseUrl}/logout`).then(r => {
         window.console.log(r);
+        this.setUser({ email: "" });
         this.callMessage({ content: "登出成功" });
       });
     }
@@ -228,4 +249,3 @@ export default {
   }
 }
 </style>
-

@@ -12,8 +12,13 @@
           <div @click="closeDrawer" class="authboard-close-btn">
             <font-awesome-icon icon="times" size="lg" />
           </div>
-          <div class="auth-title">{{authTitle}}</div>
-          <input v-if="auth.type === 'reg'" type="text" v-model="auth.name" placeholder="用户名" />
+          <div class="auth-title">{{ authTitle }}</div>
+          <input
+            v-if="auth.type === 'reg'"
+            type="text"
+            v-model="auth.name"
+            placeholder="用户名"
+          />
           <input type="text" v-model="auth.mail" placeholder="邮箱" />
           <input type="password" v-model="auth.passwd" placeholder="密码" />
           <input
@@ -25,15 +30,17 @@
           <div class="auth-row">
             <a href v-if="auth.type === 'login'">忘记密码？</a>
           </div>
-          <div class="message-error" v-show="auth.message">{{auth.message}}</div>
+          <div class="message-error" v-show="auth.message">
+            {{ auth.message }}
+          </div>
           <button @click="authSubmit" class="auth-submit">确认</button>
         </div>
       </template>
     </umaru-drawer>
     <div class="message-box">
       <umaru-message
-        v-for="(message,index) in components.message"
-        :key="message.content+requestId+index"
+        v-for="(message, index) in components.message"
+        :key="message.content + requestId + index"
         :content="message.content"
       ></umaru-message>
     </div>
@@ -95,6 +102,16 @@ export default {
       this.auth.passwdconfirm = "";
     }
   },
+  created() {
+    axios
+      .get(`${this.baseUrl}/user/me`)
+      .then(r => {
+        console.log(r);
+      })
+      .catch(error => {
+        window.console.log(error.response);
+      });
+  },
   methods: {
     callAuth(id) {
       window.console.log(id);
@@ -126,6 +143,7 @@ export default {
               };
               this.setUser(userData);
               this.callMessage({ content: "登录成功" });
+              this.closeDrawer();
             })
             .catch(error => {
               window.console.log(error.response);
@@ -158,6 +176,7 @@ export default {
               };
               this.setUser(userData);
               this.callMessage({ content: "注册成功" });
+              this.closeDrawer();
             })
             .catch(error => {
               window.console.log(error.response);
