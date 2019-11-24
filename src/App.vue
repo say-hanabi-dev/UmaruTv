@@ -103,8 +103,11 @@ export default {
     }
   },
   created() {
-    axios
-      .get(`${this.baseUrl}/user/me`)
+    axios({
+      method: "get",
+      url: `${this.baseUrl}/user/me`,
+      withCredentials: true
+    })
       .then(r => {
         console.log(r);
       })
@@ -140,7 +143,7 @@ export default {
             .then(r => {
               let userData = {
                 email: data.email
-              };
+              }
               this.setUser(userData);
               this.callMessage({ content: "登录成功" });
               this.closeDrawer();
