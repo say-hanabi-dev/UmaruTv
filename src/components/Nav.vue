@@ -156,7 +156,11 @@ export default {
     },
     logout() {
       this.reqCount();
-      axios.post(`${this.baseUrl}/logout`).then(r => {
+      axios({
+        method: "post",
+        url: `${this.baseUrl}/logout`,
+        withCredentials: true
+      }).then(r => {
         window.console.log(r);
         this.setUser({ email: "" });
         this.callMessage({ content: "登出成功" });

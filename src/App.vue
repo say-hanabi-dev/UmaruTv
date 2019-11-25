@@ -109,7 +109,7 @@ export default {
       withCredentials: true
     })
       .then(r => {
-        console.log(r);
+        this.setUser({ email: r.data.email });
       })
       .catch(error => {
         window.console.log(error.response);
@@ -139,11 +139,11 @@ export default {
           formData.append("password", data.password);
           this.reqCount();
           axios
-            .post(`${this.baseUrl}/login`, formData)
+            .post(`${this.baseUrl}/login`, formData, { withCredentials: true })
             .then(r => {
               let userData = {
                 email: data.email
-              }
+              };
               this.setUser(userData);
               this.callMessage({ content: "登录成功" });
               this.closeDrawer();
@@ -172,7 +172,9 @@ export default {
           formData.append("password_confirmation", data.password_confirmation);
           this.reqCount();
           axios
-            .post(`${this.baseUrl}/register`, formData)
+            .post(`${this.baseUrl}/register`, formData, {
+              withCredentials: true
+            })
             .then(r => {
               let userData = {
                 email: data.email
