@@ -33,7 +33,7 @@
           <div class="message-error" v-show="auth.message">
             {{ auth.message }}
           </div>
-          <button @click="authSubmit" class="auth-submit">确认</button>
+          <button @click="authSubmit" class="auth-submit" :disabled="isLoading" :class="{disabled:isLoading}">确认</button>
         </div>
       </template>
     </umaru-drawer>
@@ -84,8 +84,9 @@ export default {
         mail: "",
         name: "",
         passwdconfirm: "",
-        message: ""
-      }
+        message: "",
+      },
+      isLoading:false
     };
   },
   components: {
@@ -130,6 +131,7 @@ export default {
     authSubmit() {
       switch (this.auth.type) {
         case "login": {
+          this.isLoading = true;
           let data = {
             email: this.auth.mail,
             password: this.auth.passwd
@@ -141,6 +143,7 @@ export default {
           axios
             .post(`${this.baseUrl}/login`, formData, { withCredentials: true })
             .then(r => {
+              this.isLoading = false;
               let userData = {
                 email: data.email
               };
@@ -149,6 +152,7 @@ export default {
               this.closeDrawer();
             })
             .catch(error => {
+              this.isLoading = false;
               window.console.log(error.response);
               if (error.response.status === 422) {
                 console.log(this.requestId);
@@ -255,6 +259,12 @@ export default {
 .auth-submit:hover {
   color: white;
   background-color: black;
+}
+
+.disabled:hover{
+  color: black;
+  background: grey;
+  cursor: not-allowed;
 }
 
 .auth-row {
