@@ -33,7 +33,8 @@
           <div class="message-error" v-show="auth.message">
             {{ auth.message }}
           </div>
-          <button @click="authSubmit" class="auth-submit" :disabled="isLoading" :class="{disabled:isLoading}">确认</button>
+          <div class="mdui-spinner"></div>
+          <button @click="authSubmit" class="auth-submit" :disabled="isLoading" :class="{disabled:isLoading,'mdui-spinner':isLoading}">确认</button>
         </div>
       </template>
     </umaru-drawer>
