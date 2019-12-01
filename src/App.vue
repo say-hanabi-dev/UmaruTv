@@ -9,32 +9,35 @@
       <template v-slot:drawerinner>
         <div @click="closeDrawer" class="authboard-mask"></div>
         <div class="authboard">
-          <div @click="closeDrawer" class="authboard-close-btn">
-            <font-awesome-icon icon="times" size="lg" />
-          </div>
-          <div class="auth-title">{{ authTitle }}</div>
-          <input
-            v-if="auth.type === 'reg'"
-            type="text"
-            v-model="auth.name"
-            placeholder="用户名"
-          />
-          <input type="text" v-model="auth.mail" placeholder="邮箱" />
-          <input type="password" v-model="auth.passwd" placeholder="密码" />
-          <input
-            type="password"
-            v-if="auth.type === 'reg'"
-            v-model="auth.passwdconfirm"
-            placeholder="确认密码"
-          />
-          <div class="auth-row">
-            <a href v-if="auth.type === 'login'">忘记密码？</a>
-          </div>
-          <div class="message-error" v-show="auth.message">
-            {{ auth.message }}
-          </div>
-          <div class="mdui-spinner"></div>
-          <button @click="authSubmit" class="auth-submit" :disabled="isLoading" :class="{disabled:isLoading,'mdui-spinner':isLoading}">确认</button>
+          <form>
+            <div @click="closeDrawer" class="authboard-close-btn">
+              <font-awesome-icon icon="times" size="lg" />
+            </div>
+            <div class="auth-title">{{ authTitle }}</div>
+            <input
+                    v-if="auth.type === 'reg'"
+                    type="text"
+                    v-model="auth.name"
+                    placeholder="用户名"
+            />
+            <input type="text" v-model="auth.mail" placeholder="邮箱" />
+            <input type="password" v-model="auth.passwd" @keyup.enter="authSubmit" placeholder="密码" />
+            <input
+                    type="password"
+                    v-if="auth.type === 'reg'"
+                    v-model="auth.passwdconfirm"
+                    placeholder="确认密码"
+            />
+            <div class="auth-row">
+              <a href v-if="auth.type === 'login'">忘记密码？</a>
+            </div>
+            <div class="message-error" v-show="auth.message">
+              {{ auth.message }}
+            </div>
+            <div class="mdui-spinner"></div>
+            <button @click="authSubmit" type="button" class="auth-submit" :disabled="isLoading" :class="{disabled:isLoading,'mdui-spinner':isLoading}">确认</button>
+          </form>
+
         </div>
       </template>
     </umaru-drawer>
@@ -111,7 +114,8 @@ export default {
       withCredentials: true
     })
       .then(r => {
-        this.setUser({ email: r.data.email });
+        console.log(r)
+        this.setUser({ email: r.data.email,name:r.data.name });
       })
       .catch(error => {
         window.console.log(error.response);
@@ -145,9 +149,7 @@ export default {
             .post(`${this.baseUrl}/login`, formData, { withCredentials: true })
             .then(r => {
               this.isLoading = false;
-              let userData = {
-                email: data.email
-              };
+              let userData = r.data.data;
               this.setUser(userData);
               this.callMessage({ content: "登录成功" });
               this.closeDrawer();

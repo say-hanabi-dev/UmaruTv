@@ -22,7 +22,8 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USER(state, config) {
-      state.user.email = config.email
+      state.user.email = config.email;
+      state.user.name = config.name
     },
     ADD_MESSAGE(state, config) {
       state.components.message.push(config)

@@ -73,7 +73,7 @@ import axios from "axios";
 export default {
   mixins: [map, routerEvent],
   created() {
-    this.userMenu[0].content = this.user.email;
+    this.userMenu[0].content = this.user.name;
   },
   data: function() {
     return {
@@ -131,7 +131,7 @@ export default {
     };
   },
   watch: {
-    "user.email": function(val) {
+    "user.name": function(val) {
       this.userMenu[0].content = val;
     }
   },
