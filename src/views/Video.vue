@@ -105,11 +105,11 @@ export default {
   },
   methods: {
     selectEp(num) {
-      this.$router.push(`/video/${this.$route.params.id}/ep/${num}`);
+      this.$router.push(`/episode/${this.$route.params.id}/ep/${num}`);
       this.activeBtn(num);
       axios
         .get(
-          `${this.baseUrl}/animes/video/${this.resource.video[num - 1].id}/resource`
+          `${this.baseUrl}/animes/episode/${this.resource.video[num - 1].id}/resource`
         )
         .then(r => {
           console.log(r.data);
@@ -165,7 +165,7 @@ export default {
       this.activeBtn(animeEpisode);
       axios
         .get(
-          `${this.baseUrl}/animes/video/${r.data.video[animeEpisode - 1].id}/resource`
+          `${this.baseUrl}/animes/episode/${r.data.video[animeEpisode - 1].id}/resource`
         )
         .then(r => {
           console.log(r.data);
@@ -179,7 +179,7 @@ export default {
             },
             danmaku: {
               id: animeID,
-              api: `${this.baseUrl}/animes/video/danmaku/`
+              api: `${this.baseUrl}/animes/episode/danmaku/`
             }
           });
         });
