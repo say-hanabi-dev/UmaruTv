@@ -158,7 +158,7 @@ export default {
   created() {
     let animeID = this.$route.params.id;
     let animeEpisode = this.$route.params.episode;
-    axios.get(`${this.baseUrl}/animes/${animeID}/info?withVideo`).then(r => {
+    axios.get(`${this.baseUrl}/animes/${animeID}/info?withEpisode`).then(r => {
       this.resource = r.data;
       console.log(r.data);
       this.setBtnGroup(r.data);
