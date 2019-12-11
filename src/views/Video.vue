@@ -109,7 +109,7 @@ export default {
       this.activeBtn(num);
       axios
         .get(
-          `${this.baseUrl}/animes/episode/${this.resource.video[num - 1].id}/resource`
+          `${this.baseUrl}/animes/episode/${this.resource.episode[num - 1].id}/resource`
         )
         .then(r => {
           console.log(r.data);
@@ -133,7 +133,7 @@ export default {
       let btnGroup = [];
       for (let i = 0; i < data.episodes; i++) {
         let item = {
-          id: data.video[i].id,
+          id: data.episode[i].id,
           isActive: false
         };
         btnGroup.push(item);
@@ -165,7 +165,7 @@ export default {
       this.activeBtn(animeEpisode);
       axios
         .get(
-          `${this.baseUrl}/animes/episode/${r.data.video[animeEpisode - 1].id}/resource`
+          `${this.baseUrl}/animes/episode/${r.data.episode[animeEpisode - 1].id}/resource`
         )
         .then(r => {
           console.log(r.data);
