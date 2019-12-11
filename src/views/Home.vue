@@ -1,16 +1,29 @@
 <template>
   <div class="home">
-    <div class="nav-local" :class="{ 'nav-paddingtop':systemConfig.showSlide }">
+    <div
+      class="nav-local"
+      :class="{ 'nav-paddingtop': systemConfig.showSlide }"
+    >
       <div class="container">
         <div class="scroll-screen">
           <umr-slider
             v-if="systemConfig.showSlide"
             screenType="slide"
             class="flex justify-center align-end"
+            :sliderItems="sliderItems"
           ></umr-slider>
         </div>
-        <div v-if="systemConfig.showRecommand" class="plates flex justify-center">
-          <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{link.content}}</a>
+        <div
+          v-if="systemConfig.showRecommand"
+          class="plates flex justify-center"
+        >
+          <a
+            :href="link.href"
+            v-for="link in plateLinks"
+            class
+            :key="link.id"
+            >{{ link.content }}</a
+          >
         </div>
       </div>
     </div>
@@ -27,7 +40,7 @@
               <img :src="card.src" alt />
             </div>
             <div class="umr-card-bottom" slot="umr-card-bottom">
-              <h2>{{card.title}}</h2>
+              <h2>{{ card.title }}</h2>
             </div>
           </umr-card>
         </div>
@@ -40,50 +53,62 @@
                 <a
                   v-for="btn in catgoryButtons"
                   @click="catTypeSwitch(btn.id)"
-                  :class="{ isActive:catgory.currentType === btn.id }"
+                  :class="{ isActive: catgory.currentType === btn.id }"
                   class="btn-ellipse"
                   href="javascript:void(0)"
                   :key="btn.id"
-                >{{btn.content}}</a>
+                  >{{ btn.content }}</a
+                >
               </div>
 
               <div class="cards pure-g">
                 <div class="pure-u-1">
                   <div class="cats" v-if="catgory.currentType === 'timeline'">
                     <a
-                      v-for="(value,key) in catgory.timeline.day"
+                      v-for="(value, key) in catgory.timeline.day"
                       @click="daySwitch(key)"
                       class="btn-ellipse"
-                      :class="{ isActive:catgory.timeline.whichDay === key }"
+                      :class="{ isActive: catgory.timeline.whichDay === key }"
                       href="javascript:void(0)"
                       :key="key"
-                    >{{value.date}}</a>
+                      >{{ value.date }}</a
+                    >
                   </div>
                   <div class="pure-g flex space-between">
                     <umr-card
                       v-for="item in cardItems"
                       class="umr-card-sm pure-u-11-24 pure-u-sm-5-24"
                       href="javascript:void(0)"
-                      @click.native="routerPush(false,`/video/${item.id}/ep/1`)"
+                      @click.native="
+                        routerPush(false, `/video/${item.id}/ep/1`)
+                      "
                       :key="item.id"
                     >
                       <div class="umr-card-main" slot="umr-card-main">
-                        <div class="card-cover" :style="{ backgroundImage:'url('+item.cover+')' }"></div>
+                        <div
+                          class="card-cover"
+                          :style="{
+                            backgroundImage: 'url(' + item.cover + ')'
+                          }"
+                        ></div>
                       </div>
                       <div class="umr-card-bottom" slot="umr-card-bottom">
-                        <div class="umr-card-sm-title">{{item.name}}</div>
+                        <div class="umr-card-sm-title">{{ item.name }}</div>
                         <div class="umr-card-sm-states">
                           <span>
                             <font-awesome-icon class="card-ico" icon="heart" />
-                            {{item.collection}}
+                            {{ item.collection }}
                           </span>
                           <span>
-                            <font-awesome-icon class="card-ico" icon="comment" />
-                            {{item.danmaku}}
+                            <font-awesome-icon
+                              class="card-ico"
+                              icon="comment"
+                            />
+                            {{ item.danmaku }}
                           </span>
                           <span>
                             <font-awesome-icon class="card-ico" icon="video" />
-                            {{item.watch}}
+                            {{ item.watch }}
                           </span>
                         </div>
                       </div>
@@ -105,16 +130,22 @@
               <div class="pure-u-1">
                 <umr-card
                   class="toolbar-items"
-                  v-for="(item,index) in toollbarItems"
+                  v-for="(item, index) in toollbarItems"
                   href="javascript:void(0)"
-                  @click.native="routerPush(false,`/video/${item.id}/ep/${item.episodes}`)"
-                  :key="item.name+item.id"
+                  @click.native="
+                    routerPush(false, `/video/${item.id}/ep/${item.episodes}`)
+                  "
+                  :key="item.name + item.id"
                 >
                   <div class="pure-g" slot="umr-card-bottom">
-                    <span class="tag tag-black pure-u-2-24">{{index + 1}}</span>
+                    <span class="tag tag-black pure-u-2-24">{{
+                      index + 1
+                    }}</span>
                     <span class="pure-u-22-24 toolbar-title">
-                      {{item.name}}
-                      <span class="toolbar-sub">更新至{{item.episodes}}集</span>
+                      {{ item.name }}
+                      <span class="toolbar-sub"
+                        >更新至{{ item.episodes }}集</span
+                      >
                     </span>
                   </div>
                 </umr-card>
@@ -250,7 +281,8 @@ export default {
           data: []
         }
       },
-      toollbarItems: []
+      toollbarItems: [],
+      sliderItems: []
     };
   },
   methods: {
@@ -290,6 +322,9 @@ export default {
       console.log(r.data);
       this.catgory.timeline.data = r.data;
     });
+    axios.get(`${this.baseUrl}/carousel/index`).then(r => {
+      this.sliderItems = r.data;
+    });
   }
 };
 </script>
@@ -304,6 +339,7 @@ export default {
 }
 .nav-paddingtop {
   padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .plates a {
   padding: 1.5rem 1.5rem;

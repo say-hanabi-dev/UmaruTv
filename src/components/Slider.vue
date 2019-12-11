@@ -2,31 +2,42 @@
   <div class="umr-slider">
     <div class="umr-slider-screen">
       <div v-if="screenType === 'fade'" class="umr-slider-pic">
-        <a v-for="img in imgs" :href="img.href" :class="{fade:img.isFade}" :key="img.id">
-          <img :src="img.src" alt="imgs">
+        <a
+          v-for="img in imgs"
+          :href="img.href"
+          :class="{ fade: img.isFade }"
+          :key="img.id"
+        >
+          <img :src="img.src" alt="imgs" />
         </a>
       </div>
       <div
         v-else-if="screenType === 'slide'"
         class="umr-slider-pic"
-        :style="{transform:'translateX('+position+'%)'}"
-        :class="{hasTransition:enableTransition}"
+        :style="{ transform: 'translateX(' + position + '%)' }"
+        :class="{ hasTransition: enableTransition }"
       >
         <a :href="imgs[lastIndex].href" style="transform:translateX(-100%)">
-          <img :src="imgs[lastIndex].src" alt>
+          <img :src="imgs[lastIndex].src" alt />
         </a>
         <a
-          v-for="(img,index) in imgs"
+          v-for="(img, index) in imgs"
           ref="pics"
-          :style="{transform:'translateX('+100*index+'%)'}"
-          :class="{transform:img.transformX,'transform-leave':img.transformXleave}"
+          :style="{ transform: 'translateX(' + 100 * index + '%)' }"
+          :class="{
+            transform: img.transformX,
+            'transform-leave': img.transformXleave
+          }"
           :href="img.href"
           :key="img.id"
         >
-          <img :src="img.src" alt="imgs">
+          <img :src="img.src" alt="imgs" />
         </a>
-        <a :href="imgs[0].href" :style="{transform:'translateX('+100*imgs.length+'%)'}">
-          <img :src="imgs[0].src" alt>
+        <a
+          :href="imgs[0].href"
+          :style="{ transform: 'translateX(' + 100 * imgs.length + '%)' }"
+        >
+          <img :src="imgs[0].src" alt />
         </a>
       </div>
     </div>
@@ -36,61 +47,94 @@
 
 <script>
 export default {
-  props: ["screenType"],
+  props: ["screenType", "sliderItems"],
   data: function() {
     return {
       currentIndex: 0,
       position: 0,
       enableTransition: true,
       interval: "",
-      tk: 0,
-      imgs: [
-        {
-          id: "SLIDER_01",
-          src: require("../assets/P1.png"),
-          href: "www.baidu.com",
-          isFade: false,
-          transformX: false,
-          transformXleave: false
-        },
-        {
-          id: "SLIDER_02",
-          src: require("../assets/P2.jpg"),
-          href: "www.baidu.com",
-          isFade: true,
-          transformX: false,
-          transformXleave: false
-        },
-        {
-          id: "SLIDER_03",
-          src: require("../assets/P3.jpg"),
-          href: "www.baidu.com",
-          isFade: true,
-          transformX: false,
-          transformXleave: false
-        },
-        {
-          id: "SLIDER_04",
-          src: require("../assets/P4.png"),
-          href: "www.baidu.com",
-          isFade: true,
-          transformX: false,
-          transformXleave: false
-        },
-        {
-          id: "SLIDER_05",
-          src: require("../assets/P5.jpg"),
-          href: "www.baidu.com",
-          isFade: true,
-          transformX: false,
-          transformXleave: false
-        }
-      ]
+      tk: 0
+      // imgs: [
+      //   {
+      //     id: "SLIDER_01",
+      //     src: require("../assets/P1.png"),
+      //     href: "www.baidu.com",
+      //     isFade: false,
+      //     transformX: false,
+      //     transformXleave: false
+      //   },
+      //   {
+      //     id: "SLIDER_02",
+      //     src: require("../assets/P2.jpg"),
+      //     href: "www.baidu.com",
+      //     isFade: true,
+      //     transformX: false,
+      //     transformXleave: false
+      //   },
+      //   {
+      //     id: "SLIDER_03",
+      //     src: require("../assets/P3.jpg"),
+      //     href: "www.baidu.com",
+      //     isFade: true,
+      //     transformX: false,
+      //     transformXleave: false
+      //   },
+      //   {
+      //     id: "SLIDER_04",
+      //     src: require("../assets/P4.png"),
+      //     href: "www.baidu.com",
+      //     isFade: true,
+      //     transformX: false,
+      //     transformXleave: false
+      //   },
+      //   {
+      //     id: "SLIDER_05",
+      //     src: require("../assets/P5.jpg"),
+      //     href: "www.baidu.com",
+      //     isFade: true,
+      //     transformX: false,
+      //     transformXleave: false
+      //   }
+      // ]
     };
   },
   computed: {
     lastIndex: function() {
       return this.imgs.length - 1;
+    },
+    imgs: function() {
+      if (!this.sliderItems[0]) {
+        return [
+          {
+            id: "",
+            src: "",
+            href: "#",
+            isFade: true,
+            transformX: false,
+            transformXleave: false
+          }
+        ];
+      } else {
+        let arr = [];
+        for (let i = 0; i <= this.sliderItems.length - 1; i++) {
+          console.log(i);
+          let slider = {
+            id: "",
+            isFade: false,
+            transformX: false,
+            transformXleave: false
+          };
+          if (i === 0) {
+            slider.isFade = false;
+          }
+          slider.src = this.sliderItems[i].image;
+          slider.href = this.sliderItems[i].link;
+          slider.id = "SLIDER_" + (i + 1);
+          arr.push(slider);
+        }
+        return arr;
+      }
     }
   },
   methods: {
@@ -175,7 +219,8 @@ export default {
         this.setTimer("slide");
       }, 1000);
     },
-    antiSlide(timedout) {      clearTimeout(timedout);
+    antiSlide(timedout) {
+      clearTimeout(timedout);
       this.currentIndex -= 1;
       this.enableTransition = true;
       requestAnimationFrame(() => {

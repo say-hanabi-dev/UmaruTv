@@ -8,7 +8,7 @@ export default new Vuex.Store({
     testContent: 'One',
     baseUrl: 'https://api.xldm.me',
     systemConfig: {
-      showSlide: false,
+      showSlide: true,
       showRecommand: false,
     },
     requestId: 0,

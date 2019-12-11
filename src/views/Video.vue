@@ -150,7 +150,8 @@ export default {
         },
         function() {
           console.log("ok");
-        }
+        },
+        { withCredentials: true }
       );
       this.curDanmaku = "";
     }
