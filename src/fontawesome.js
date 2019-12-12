@@ -15,7 +15,8 @@ import {
     faHeart,
     faAngleLeft,
     faAngleRight,
-    faTimes
+    faTimes,
+    faSearch
 } from '@fortawesome/free-solid-svg-icons'
 
 let iconlist = [
@@ -25,7 +26,8 @@ let iconlist = [
     faHeart,
     faAngleLeft,
     faAngleRight,
-    faTimes
+    faTimes,
+    faSearch
 ]
 
 library.add(...iconlist)
