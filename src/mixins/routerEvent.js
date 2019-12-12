@@ -1,8 +1,8 @@
 export default {
     methods: {
-        routerPush(siOutside, to) {
+        routerPush(isOutside, to) {
             window.console.log(to);
-            if (!siOutside) {
+            if (!isOutside) {
                 this.$router.push(`${to}`)
             } else {
                 window.open(to)

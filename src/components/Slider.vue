@@ -118,7 +118,6 @@ export default {
       } else {
         let arr = [];
         for (let i = 0; i <= this.sliderItems.length - 1; i++) {
-          console.log(i);
           let slider = {
             id: "",
             isFade: false,
@@ -172,7 +171,7 @@ export default {
           this.enableTransition = false;
         }
         if (document.visibilityState === "visible") {
-          console.log(timedout);
+          // console.log(timedout);
           clearTimeout(timedout);
           let newslide = new Promise((resolve, reject) => {
             document.removeEventListener(
@@ -185,7 +184,7 @@ export default {
             resolve("eventremoved");
           });
           newslide.then(r => {
-            console.log(r);
+            // console.log(r);
             self.bootSlider();
           });
         }
