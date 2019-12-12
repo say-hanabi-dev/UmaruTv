@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../node_modules/mdui/dist/css/mdui.min.css";
+/* @import "../../node_modules/mdui/dist/css/mdui.min.css"; */
 .search {
   margin-top: 40px;
 }

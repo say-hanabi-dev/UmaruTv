@@ -25,10 +25,8 @@
                 placeholder="搜索"
               />
             </div>
-            <div>
-              <i class="mdui-icon material-icons search-icon" @click="search"
-                >search</i
-              >
+            <div class="search-btn" @click="search">
+              <font-awesome-icon class="card-ico" icon="search" />
             </div>
           </div>
         </div>
@@ -40,7 +38,7 @@
         ></div>
 
         <div class="search-trigger" @click="showSearchbar">
-          <i class="mdui-icon material-icons search-icon">search</i>
+          <font-awesome-icon class="card-ico" icon="search" />
         </div>
 
         <div v-if="user.email === ''" class="auth">
@@ -216,7 +214,8 @@ export default {
   background-color: black;
   color: white;
   border-radius: 3px;
-  padding: 0.1rem;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .search div:first-of-type {
@@ -228,16 +227,22 @@ export default {
   border: 0;
   outline: none;
   background-color: rgba(0, 0, 0, 0);
+  width: 100%;
 }
-.search-icon:hover {
+
+.search-btn {
   cursor: pointer;
+  padding: 0 .5rem;
+}
+.search-btn svg {
+  color: rgb(92, 92, 92)
 }
 
 .auth {
   display: inline-block;
 }
 
-@media screen and (min-width: 35.5em) {
+@media screen and (min-width: 48em) {
   .search {
     position: relative;
   }
