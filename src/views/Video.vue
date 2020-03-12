@@ -146,6 +146,7 @@ import map from "../mixins/map.js";
 import routerEvent from "../mixins/routerEvent.js";
 
 import axios from "axios";
+axios.defaults.withCredentials=true
 
 window.Hls = Hls;
 
