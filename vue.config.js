@@ -1,4 +1,5 @@
 module.exports = {
+  
   devServer: {
     proxy: {
       '/api': {
@@ -9,6 +10,9 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         },
+        headers:{
+          host:'https://xldm.me'
+        }
       }
     }
 

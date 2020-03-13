@@ -44,7 +44,8 @@
     },
     "rules": {
       "no-undef": 0,
-      "no-unused-vars": 0
+      "no-unused-vars": 0,
+      "vue/no-unused-components": 0
     }
   },
   "browserslist": [
