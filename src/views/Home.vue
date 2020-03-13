@@ -1,9 +1,6 @@
 <template>
   <div class="home">
-    <div
-      class="nav-local"
-      :class="{ 'nav-paddingtop': systemConfig.showSlide }"
-    >
+    <div class="nav-local" :class="{ 'nav-paddingtop': systemConfig.showSlide }">
       <div class="container">
         <div class="scroll-screen">
           <umr-slider
@@ -13,17 +10,8 @@
             :sliderItems="sliderItems"
           ></umr-slider>
         </div>
-        <div
-          v-if="systemConfig.showRecommand"
-          class="plates flex justify-center"
-        >
-          <a
-            :href="link.href"
-            v-for="link in plateLinks"
-            class
-            :key="link.id"
-            >{{ link.content }}</a
-          >
+        <div v-if="systemConfig.showRecommand" class="plates flex justify-center">
+          <a :href="link.href" v-for="link in plateLinks" class :key="link.id">{{ link.content }}</a>
         </div>
       </div>
     </div>
@@ -57,8 +45,7 @@
                   class="btn-ellipse"
                   href="javascript:void(0)"
                   :key="btn.id"
-                  >{{ btn.content }}</a
-                >
+                >{{ btn.content }}</a>
               </div>
 
               <div class="cards pure-g">
@@ -71,8 +58,7 @@
                       :class="{ isActive: catgory.timeline.whichDay === key }"
                       href="javascript:void(0)"
                       :key="key"
-                      >{{ value.date }}</a
-                    >
+                    >{{ value.date }}</a>
                   </div>
                   <div class="pure-g flex space-between">
                     <umr-card
@@ -100,10 +86,7 @@
                             {{ item.collection }}
                           </span>
                           <span>
-                            <font-awesome-icon
-                              class="card-ico"
-                              icon="comment"
-                            />
+                            <font-awesome-icon class="card-ico" icon="comment" />
                             {{ item.danmaku }}
                           </span>
                           <span>
@@ -138,14 +121,14 @@
                   :key="item.name + item.id"
                 >
                   <div class="pure-g" slot="umr-card-bottom">
-                    <span class="tag tag-black pure-u-2-24">{{
+                    <span class="tag tag-black pure-u-2-24">
+                      {{
                       index + 1
-                    }}</span>
+                      }}
+                    </span>
                     <span class="pure-u-22-24 toolbar-title">
                       {{ item.name }}
-                      <span class="toolbar-sub"
-                        >更新至{{ item.episodes }}集</span
-                      >
+                      <span class="toolbar-sub">更新至{{ item.episodes }}集</span>
                     </span>
                   </div>
                 </umr-card>
@@ -178,12 +161,16 @@ export default {
   },
   computed: {
     cardItems() {
+      let result;
       switch (this.catgory.currentType) {
         case "allanime":
-          return this.catgory.allAnime;
+          result = this.catgory.allAnime;
+          break;
         case "timeline":
-          return this.catgory.timeline.data[this.catgory.timeline.whichDay];
+          result = this.catgory.timeline.data[this.catgory.timeline.whichDay];
+          break;
       }
+      return result;
     }
   },
   data: function() {
