@@ -4,28 +4,17 @@
       <div class="pure-u-1 pure-u-md-18-24">
         <div class="player" ref="player"></div>
         <div class="danmaku">
-          <input
-            type="text"
-            v-model="curDanmaku"
-            @keyup.enter="createDanmaku"
-            placeholder="输入弹幕"
-          />
+          <input type="text" v-model="curDanmaku" @keyup.enter="createDanmaku" placeholder="输入弹幕" />
         </div>
         <div class="video-plugin-sm">
           <div class="video-epgroup">
             <div class="group-title space-between">
               <div>分集列表</div>
               <div v-if="epBtnGroupPage.all > 1" class="btn-group flex">
-                <button
-                  @click="setBtnGroup(resource, epBtnGroupPage.current - 1)"
-                  class="side"
-                >
+                <button @click="setBtnGroup(resource, epBtnGroupPage.current - 1)" class="side">
                   <font-awesome-icon class="card-ico" icon="angle-left" />
                 </button>
-                <button
-                  @click="setBtnGroup(resource, epBtnGroupPage.current + 1)"
-                  class="side"
-                >
+                <button @click="setBtnGroup(resource, epBtnGroupPage.current + 1)" class="side">
                   <font-awesome-icon class="card-ico" icon="angle-right" />
                 </button>
               </div>
@@ -36,9 +25,7 @@
                 :key="item.id"
                 :class="{ active: item.isActive === true }"
                 @click="selectEp(index + 1 + (epBtnGroupPage.current - 1) * 50)"
-              >
-                {{ index + 1 + (epBtnGroupPage.current - 1) * 50 }}
-              </button>
+              >{{ index + 1 + (epBtnGroupPage.current - 1) * 50 }}</button>
               <span class="fix"></span>
               <span class="fix"></span>
               <span class="fix"></span>
@@ -53,11 +40,8 @@
             <div class="epCut">
               <div class="btn-group">
                 <button class="btn-input">
-                  <input
-                    @keyup.enter="selectEp(toEp)"
-                    v-model="toEp"
-                    type="number"
-                  /><span>集</span>
+                  <input @keyup.enter="selectEp(toEp)" v-model="toEp" type="number" />
+                  <span>集</span>
                 </button>
                 <button @click="selectEp(toEp)">跳转</button>
               </div>
@@ -67,10 +51,7 @@
         <div class="video-source">
           <umr-card>
             <div slot="umr-card-lr" class="umr-card-lr">
-              <div
-                :style="{ backgroundImage: coverUrl }"
-                class="umr-card-lr-cover"
-              ></div>
+              <div :style="{ backgroundImage: coverUrl }" class="umr-card-lr-cover"></div>
               <div class="umr-card-lr-main">
                 <div class="title">{{ resource.name }}</div>
 
@@ -93,16 +74,10 @@
             <div class="group-title space-between side">
               <div>分集列表</div>
               <div v-if="epBtnGroupPage.all > 1" class="btn-group flex">
-                <button
-                  @click="setBtnGroup(resource, epBtnGroupPage.current - 1)"
-                  class="side"
-                >
+                <button @click="setBtnGroup(resource, epBtnGroupPage.current - 1)" class="side">
                   <font-awesome-icon class="card-ico" icon="angle-left" />
                 </button>
-                <button
-                  @click="setBtnGroup(resource, epBtnGroupPage.current + 1)"
-                  class="side"
-                >
+                <button @click="setBtnGroup(resource, epBtnGroupPage.current + 1)" class="side">
                   <font-awesome-icon class="card-ico" icon="angle-right" />
                 </button>
               </div>
@@ -113,20 +88,15 @@
                 :key="item.id"
                 :class="{ active: item.isActive === true }"
                 @click="selectEp(index + 1 + (epBtnGroupPage.current - 1) * 50)"
-              >
-                {{ index + 1 + (epBtnGroupPage.current - 1) * 50 }}
-              </button>
+              >{{ index + 1 + (epBtnGroupPage.current - 1) * 50 }}</button>
               <span class="fix"></span>
               <span class="fix"></span>
             </div>
             <div class="epCut">
               <div class="btn-group">
                 <button class="btn-input">
-                  <input
-                    @keyup.enter="selectEp(toEp)"
-                    v-model="toEp"
-                    type="number"
-                  /><span>集</span>
+                  <input @keyup.enter="selectEp(toEp)" v-model="toEp" type="number" />
+                  <span>集</span>
                 </button>
                 <button @click="selectEp(toEp)">跳转</button>
               </div>
@@ -140,13 +110,13 @@
 
 <script>
 import Hls from "hls.js";
-import DPlayer from "dplayer";
+import DPlayer from "dplayer-umr-mod";
 import Card from "@/components/Card";
 import map from "../mixins/map.js";
 import routerEvent from "../mixins/routerEvent.js";
 
 import axios from "axios";
-axios.defaults.withCredentials=true
+axios.defaults.withCredentials = true;
 
 window.Hls = Hls;
 
@@ -206,7 +176,7 @@ export default {
     selectEp(num) {
       if (num < 1 || num > this.resource.episodes) {
         this.callMessage({ content: "本集不存在" });
-        return
+        return;
       }
       let animeID = this.$route.params.id;
       this.$router.push(`/video/${animeID}/ep/${num}`);
@@ -279,6 +249,10 @@ export default {
       this.activeBtn(animeEpisode - (this.epBtnGroupPage.current - 1) * 50);
       this.initVideo(animeID, animeEpisode);
     });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.videoPlayer = {};
+    next();
   }
 };
 </script>
